@@ -29,10 +29,11 @@
         $postcodeinput = htmlentities($_POST["postcode"]);
         $huisnr = htmlentities($_POST["huisnr"]);
         $gbdatum = htmlentities($_POST["gbdatum"]);
+        //foutcontrole zodat database niet bijgewerkt wordt als er fout is.
         $fout = false;
-
+        //postcode aan elkaar
         $postcode = str_replace(" ", "", $postcodeinput);
-
+        //wachtwoorden overeenkomen
         if ($wachtwoord != $wachtwoordbevestig) {
             print("Wachtwoorden komen niet overeen");
             $fout = true;
@@ -51,6 +52,7 @@
             print("Je moet 18 jaar of ouder zijn om te registreren!");
             $fout = true;
         }
+        //database bijwerken na goede invoer registratie
         if ($fout == false) {
             try {
                 $stmt = $db->prepare("INSERT INTO treinkoerier(voornaam, achternaam, email, wachtwoord, gbdatum, telnr, postcode, huisnr)
@@ -65,7 +67,7 @@
         }
     }
     ?>
-    <body>
+    <body> <!-- inlogformulier -->
         <form method="post" action="registreren.php">
             <h1>Registreren</h1>
 
