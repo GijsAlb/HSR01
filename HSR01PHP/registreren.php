@@ -35,7 +35,7 @@
         $postcode = str_replace(" ", "", $postcodeinput);
         //wachtwoorden overeenkomen
         if ($wachtwoord != $wachtwoordbevestig) {
-            print("Wachtwoorden komen niet overeen");
+            print("Wachtwoorden komen niet overeen.");
             $fout = true;
         }
         //check zodat je geen datum in de toekomst kan kiezen
@@ -61,7 +61,7 @@
                 print("Registratie gelukt!");
             } catch (PDOException $e) {
                 if ($e->errorInfo[1] == 1062) {
-                    ("Email adres is reeds in gebruik!");
+                    ("E-mailadres is reeds in gebruik!");
                 }
             }
         }
