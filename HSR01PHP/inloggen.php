@@ -14,12 +14,11 @@ if (isset($_POST["submit"])) {
     $wachtwoordinput = htmlentities($_POST["wachtwoord"]);
     $wachtwoord = hash("sha512", $wachtwoordinput);
 
-    $stmt = $db->prepare("SELECT wachtwoord FROM treinkoerier WHERE email=? LIMIT = 1");
+    $stmt = $db->prepare("SELECT wachtwoord FROM treinkoerier WHERE email=?");
     $stmt->execute(array($email));
     $wachtwoorddb = $stmt->fetch();
 
-    print($wachtwoorddb[0]);
-    print("</br><br>" . $wachtwoord . "<br>");
+
     //print_r($wachtwoorddb);
     if ($wachtwoord == $wachtwoorddb[0]) {
         $_SESSION["ingelogd"] = true;
