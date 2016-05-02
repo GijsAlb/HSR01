@@ -14,15 +14,16 @@ if (isset($_POST["submit"])) {
     $wachtwoordinput = htmlentities($_POST["wachtwoord"]);
     $wachtwoord = hash("sha512", $wachtwoordinput);
 
-    $stmt = $db->prepare("SELECT wachtwoord FROM treinkoerier WHERE email=?");
+    $stmt = $db->prepare("SELECT idtreinkoerier, wachtwoord FROM treinkoerier WHERE email=?");
     $stmt->execute(array($email));
     $wachtwoorddb = $stmt->fetch();
 
 
     //print_r($wachtwoorddb);
-    if ($wachtwoord == $wachtwoorddb[0]) {
+    if ($wachtwoord == $wachtwoorddb[1]) {
         $_SESSION["ingelogd"] = true;
-        echo "Geluk! het werkt";
+        $_SESSION["id"] = $wachtwoorddb[0];
+        echo "Succesvol ingelogd";
     } else {
         $foutingelogd = "Onjuiste inloggegevens.";
     }

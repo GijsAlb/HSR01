@@ -1,6 +1,5 @@
 <!doctype html>
 <?php require_once("includes/config.php"); ?>
-<script type="text/javascript" src="includes/wachtwoordcheck.js"></script>
 <htmL>
     <head>
 
@@ -19,6 +18,7 @@
     $gbdatum = "";
     $foutwachtwoord = "";
     $foutwachtwoordbevestig = "";
+    $foutemail = "";
     //als bevestigingsknop is ingedrukt...
     if (isset($_POST["submit"])) {
         //filter input tegen xss met html entities en haalt gegevens op
@@ -42,6 +42,7 @@
         }
         if (ctype_alnum($_POST["wachtwoord"]) == true) {
             $foutwachtwoord = "Het wachtwoord moet minimaal 1 symbool bevatten";
+            $fout = true;
         }
         //check zodat je geen datum in de toekomst kan kiezen
         if ($vandaag < $_POST["gbdatum"]) {
@@ -66,7 +67,7 @@
                 print("Registratie gelukt!");
             } catch (PDOException $e) {
                 if ($e->errorInfo[1] == 1062) {
-                    ("Email adres is reeds in gebruik!");
+                    $foutemail = "Email adres is reeds in gebruik!";
                 }
             }
         }
@@ -89,21 +90,24 @@
             <p>
                 E-mail:*
                 <input type="email" name="email" value="<?php print($email); ?>" required>
+                <?php print($foutemail); ?>
             </p>
 
             <p>
                 Wachtwoord:*
                 <input type="password" name="wachtwoord" value="" required>
+                <?php print($foutwachtwoord); ?>
             </p>
 
             <p>
                 Wachtwoord bevestigen:*
                 <input type="password" name="wachtwoordbevestig" value="" required>
+                <?php print($foutwachtwoordbevestig); ?>
             </p>
 
             <p>
                 Geboortedatum:*
-                <input type="date" name="gbdatum" placeholder="dag-maand-jaar" value="<?php print($gbdatum); ?>">
+                <input type="date" name="gbdatum" placeholder="dd-mm-jjjj" value="<?php print($gbdatum); ?>">
             </p>
 
             <p>
@@ -113,7 +117,7 @@
 
             <p>
                 Postcode:*
-                <input type="text" name="postcode" value="<?php print($postcode) ?>" required>
+                <input type="text" name="postcode" placeholder="1111AA" pattern="[1-9][0-9]{3}[a-zA-Z]{2}" value="<?php print($postcode) ?>" required>
 
                 Huisnummer:*
                 <input type="text" name="huisnr" value="<?php print($huisnr) ?>" required>
