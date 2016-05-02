@@ -105,13 +105,13 @@ if (isset($_POST["knop"])) {
         <script>
             $(function () {
                 $("#beginstation").autocomplete({
-                    source: "Search.php",
+                    source: "stationlijst.php",
                     minLength: 2
                 });
             });
             $(function () {
                 $("#eindstation").autocomplete({
-                    source: "Search.php",
+                    source: "stationlijst.php",
                     minLength: 2
                 });
             });
