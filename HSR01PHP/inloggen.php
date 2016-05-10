@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <?php
 session_start();
+$_SESSION["foutinlog"] = 0;
 include("Includes/config.php")
 ?>
 <?php
@@ -10,6 +11,10 @@ $foutingelogd = "";
 $wachtwoordinput = "";
 
 if (isset($_POST["submit"])) {
+    if ($_SESSION["foutinlog"] > 2) {
+        print("U heeft teveel foute inlogpogingen gedaan, probeer het later opnieuw!");
+        die();
+    }
     $email = htmlentities($_POST["email"]);
     $wachtwoordinput = htmlentities($_POST["wachtwoord"]);
     $wachtwoord = hash("sha512", $wachtwoordinput);
@@ -21,11 +26,14 @@ if (isset($_POST["submit"])) {
 
     //print_r($wachtwoorddb);
     if ($wachtwoord == $wachtwoorddb[1]) {
+        session_unregister("foutinlog");
         $_SESSION["ingelogd"] = true;
         $_SESSION["id"] = $wachtwoorddb[0];
         echo "Succesvol ingelogd";
+        header("location: loggedin.php");
     } else {
         $foutingelogd = "Onjuiste inloggegevens.";
+        $_SESSION["foutinlog"] ++;
     }
 }
 ?>

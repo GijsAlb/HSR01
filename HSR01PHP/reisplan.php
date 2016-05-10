@@ -18,7 +18,17 @@ $fouteind = "";
 $foutnietzosnugger = false;
 $foutdatum = "";
 
-
+try {
+    $stmt = $db->prepare("SELECT COUNT(*) FROM reisplan WHERE treinreiziger_idtreinreiziger = ? AND tijdelijk = 0");
+    $stmt->execute(array($_SESSION["id"]));
+    $dbvasttraject = $stmt->fetch();
+} catch (PDOException $e) {
+    print("Er is iets misgegaan, probeer het later opnieuw");
+}
+//kan weg(evt wijzigen traject formulier)
+if ($dbvasttraject[0] != 0) {
+    print("U heeft al een vast traject!");
+}
 if (isset($_POST["knop"])) {
     $url = "http://webservices.ns.nl/ns-api-stations-v2";
     $ww = "h1xeA17XHDFc1qWpy_nVEoEvAyHvB8LVRP_I0tyY-QjrcuxXxln-8w";
@@ -41,6 +51,7 @@ if (isset($_POST["knop"])) {
             $fout = true;
         }
     }
+
     if ($beginstation == $eindstation) {
         print("Fout: het beginstation is hetzelfde als het eindstation!");
         $foutnietzosnugger = true;

@@ -37,12 +37,14 @@
         $postcode = str_replace(" ", "", $postcodeinput);
         //wachtwoorden overeenkomen
         if ($wachtwoord != $wachtwoordbevestig) {
-            $foutwachtwoordbevestig = "Wachtwoorden komen niet overeen";
+            $foutwachtwoordbevestig = "Wachtwoorden komen niet overeen.";
             $fout = true;
         }
         if (ctype_alnum($_POST["wachtwoord"]) == true) {
-            $foutwachtwoord = "Het wachtwoord moet minimaal 1 symbool bevatten";
+            $foutwachtwoord = "Het wachtwoord moet minimaal 1 symbool bevatten.";
             $fout = true;
+        } elseif (strlen($_POST["wachtwoord"]) < 6) {
+            $foutwachtwoord = "Het wachtwoord moet uit minimaal 6 karakters bestaan.";
         }
         //check zodat je geen datum in de toekomst kan kiezen
         if ($vandaag < $_POST["gbdatum"]) {
