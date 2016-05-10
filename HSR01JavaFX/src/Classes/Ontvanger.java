@@ -7,8 +7,8 @@ public class Ontvanger extends Persoon {
     
     
     //Constructors
-    public Ontvanger(int i, String vn, String tv, String an, int asv, String pc, String hnr, String toev, String em) {
-        super(i, vn, tv, an, asv, pc, hnr, toev, em);
+    public Ontvanger(int i, String vn, String tv, String an, String pc, String hnr, String toev, String em) {
+        super(i, vn, tv, an, pc, hnr, toev, em);
     }
     
     //Getters

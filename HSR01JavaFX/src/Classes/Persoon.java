@@ -8,19 +8,17 @@ public class Persoon {
     private String voornaam;
     private String tussenvoegsel;
     private String achternaam;
-    private int aanspreekvorm;
     private String postcode;
     private String huisnr;
     private String toevoeging;
     private String emailadres;
     
     //Constructors
-    public Persoon (int i, String vn, String tv, String an, int asv, String pc, String hnr, String toev, String em) {
+    public Persoon (int i, String vn, String tv, String an, String pc, String hnr, String toev, String em) {
         id = i;
         voornaam = vn;
         tussenvoegsel = tv;
         achternaam = an;
-        setAanspreekvorm(asv); //1 = Meneer, 2 = Mevrouw
         postcode = pc;
         huisnr = hnr;
         toevoeging = toev;
@@ -39,9 +37,6 @@ public class Persoon {
     }
     public String getAchternaam() {
         return achternaam;
-    }
-    public int getAanspreekvorm() {
-        return aanspreekvorm;
     }
     public String getPostcode() {
         return postcode;
@@ -69,13 +64,6 @@ public class Persoon {
     public void setAchternaam(String a) {
         achternaam = a;
     }
-    public void setAanspreekvorm(int asv) {
-        if(asv == 1 || asv == 2) {
-            aanspreekvorm = asv;
-        } else {
-            System.out.println("Aanspreekvorm onbekend (niet 1 of 2)");
-        }
-    }
     public void setPostcode(String p) {
         postcode = p;
     }
@@ -90,14 +78,6 @@ public class Persoon {
     }
     
     //Methods
-    public String getAanspreekvormString() {
-        if(aanspreekvorm == 1) {
-            return "Meneer";
-        } else if(aanspreekvorm == 2) {
-            return "Mevrouw";
-        } else {
-            return "Onbekende aanspreekvorm";
-        }
-    }
+    
     
 }
