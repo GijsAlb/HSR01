@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php
 session_start();
-include("Includes/config.php")
+
 ?>
 <?php
 $email = "";
@@ -14,7 +14,7 @@ if (isset($_POST["submit"])) {
     $wachtwoordinput = htmlentities($_POST["wachtwoord"]);
     $wachtwoord = hash("sha512", $wachtwoordinput);
 
-    $stmt = $db->prepare("SELECT wachtwoord FROM treinkoerier WHERE email=? LIMIT = 1");
+    $stmt = $db->prepare("SELECT wachtwoord FROM treinkoerier WHERE email=? LIMIT 1");
     $stmt->execute(array($email));
     $wachtwoorddb = $stmt->fetch();
 
@@ -47,5 +47,7 @@ if (isset($_POST["submit"])) {
 
             <input type="submit" name="submit" value="Inloggen!">
         </form>
+        Wachtwoord vergeten?  <a href="nieuw_wachtwoord_aanvragen.php">vraag nu een nieuw wachtwoord aan!</a><br> 
+        Heeft u nog geen account?  <a href="nieuw_wachtwoord_aanvragen.php">vraag nu een account aan!</a><br> 
     </body>
 </html>
