@@ -17,6 +17,8 @@
     $postcode = "";
     $huisnr = "";
     $gbdatum = "";
+    $foutwachtwoord = "";
+    $foutwachtwoordbevestig = "";
     //als bevestigingsknop is ingedrukt...
     if (isset($_POST["submit"])) {
         //filter input tegen xss met html entities en haalt gegevens op
@@ -35,8 +37,11 @@
         $postcode = str_replace(" ", "", $postcodeinput);
         //wachtwoorden overeenkomen
         if ($wachtwoord != $wachtwoordbevestig) {
-            print("Wachtwoorden komen niet overeen.");
+            $foutwachtwoordbevestig = "Wachtwoorden komen niet overeen";
             $fout = true;
+        }
+        if (ctype_alnum($_POST["wachtwoord"]) == true) {
+            $foutwachtwoord = "Het wachtwoord moet minimaal 1 symbool bevatten";
         }
         //check zodat je geen datum in de toekomst kan kiezen
         if ($vandaag < $_POST["gbdatum"]) {
@@ -71,26 +76,40 @@
         <form method="post" action="registreren.php">
             <h1>Registreren</h1>
 
-            <p>Voornaam:*</p>
-            <input type="text" name="voornaam" value="<?php print($voornaam); ?>" required>
+            <p>
+                Voornaam:*
+                <input type="text" name="voornaam" value="<?php print($voornaam); ?>" required>
+            </p>
 
-            <p>Achternaam:*</p>
-            <input type="text" name="achternaam" value="<?php print($achternaam); ?>" required>
+            <p>
+                Achternaam:*
+                <input type="text" name="achternaam" value="<?php print($achternaam); ?>" required>
+            </p>
 
-            <p>E-mail:*</p>
-            <input type="email" name="email" value="<?php print($email); ?>" required>
+            <p>
+                E-mail:*
+                <input type="email" name="email" value="<?php print($email); ?>" required>
+            </p>
 
-            <p>Wachtwoord:*</p>
-            <input type="password" name="wachtwoord" value="" required>
+            <p>
+                Wachtwoord:*
+                <input type="password" name="wachtwoord" value="" required>
+            </p>
 
-            <p>Wachtwoord bevestigen:*</p>
-            <input type="password" name="wachtwoordbevestig" value="" required>
+            <p>
+                Wachtwoord bevestigen:*
+                <input type="password" name="wachtwoordbevestig" value="" required>
+            </p>
 
-            <p>Geboortedatum:*</p>
-            <input type="date" name="gbdatum" placeholder="dag-maand-jaar" value="<?php print($gbdatum); ?>">
+            <p>
+                Geboortedatum:*
+                <input type="date" name="gbdatum" placeholder="dag-maand-jaar" value="<?php print($gbdatum); ?>">
+            </p>
 
-            <p>Telnummer:*</p>
-            <input type="text" name="telnr" value="<?php print($telnr); ?>" required>
+            <p>
+                Telnummer:*
+                <input type="text" name="telnr" value="<?php print($telnr); ?>" required>
+            </p>
 
             <p>
                 Postcode:*

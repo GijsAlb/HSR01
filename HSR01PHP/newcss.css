@@ -1,0 +1,125 @@
+
+.social-header-wrapper {
+  margin: 10px;
+}
+
+
+.social-header {
+  padding-left: 10px;
+}
+
+.social-footer {
+  float: right;
+}
+.social-footer-wrapper {
+  float: right;
+  width: 100%;
+}
+.social-footer-wrapper img {
+  float: right;
+  padding-left: 10px;
+  padding-bottom: 45px;
+  padding-right: 10px;
+  padding-top: 15px;
+}
+
+
+.custom-search{
+  position: relative;
+    float: left;
+    list-style: none;
+    margin-left: 10px !important;
+    font-size: 15px !important;
+    background-color: #e10a13 !important;
+    padding: 0px 7px !important;
+
+}
+.custom-search a{
+      color: #fff;
+}
+
+
+/* search */
+
+.searchbox{
+    position:relative;
+    min-width:43px;
+    width:0%;
+    float:right !important;
+    overflow:hidden;
+        margin-top: 0px;
+    -webkit-transition: width 0.3s;
+    -moz-transition: width 0.3s;
+    -ms-transition: width 0.3s;
+    -o-transition: width 0.3s;
+    transition: width 0.3s;
+}
+.social-header-wrapper {
+
+    float: right;
+}
+.searchbox-input{
+    top:0;
+    right:0;
+    border:0;
+    outline:0;
+    background:#dcddd8;
+    width:100%;
+    height:28px;
+    margin:0;
+    padding:0px 55px 0px 20px;
+    font-size:14px;
+    color:grey;
+}
+.searchbox-input::-webkit-input-placeholder {
+    color: grey;
+}
+.searchbox-input:-moz-placeholder {
+    color: grey;
+}
+.searchbox-input::-moz-placeholder {
+    color: grey;
+}
+.searchbox-input:-ms-input-placeholder {
+    color: grey;
+}
+
+.searchbox-icon,
+.searchbox-submit{
+    width:28px;
+    height:28px;
+    display:block;
+    position:absolute;
+    top:0;
+    font-family:verdana;
+    font-size:22px;
+    right:0;
+    padding:0;
+    margin:0;
+    border:0;
+    outline:0;
+    line-height:1.9;
+    text-align:center;
+    cursor:pointer;
+    color:#fff;
+    background:#172b3c;
+}
+
+
+
+.searchbox-open{
+    width:80%;
+}
+
+.byline{
+  position:absolute;
+  top:150px;
+  left:30%;
+  text-align:center;
+  font-size:18px;
+}
+.byline a{
+  text-decoration:none;
+  color: #d74b4b;
+}
+
