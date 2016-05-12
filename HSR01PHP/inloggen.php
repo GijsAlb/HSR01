@@ -1,29 +1,31 @@
 <!DOCTYPE html>
 <?php
+//includes en start sessie
 session_start();
-
+include("Includes/config.php");
 ?>
 <?php
 $email = "";
 $wachtwoord = "";
 $foutingelogd = "";
 $wachtwoordinput = "";
-
+//inlogcontrole
 if (isset($_POST["submit"])) {
+    //hash wachtwoord + id uit database
     $email = htmlentities($_POST["email"]);
     $wachtwoordinput = htmlentities($_POST["wachtwoord"]);
     $wachtwoord = hash("sha512", $wachtwoordinput);
 
-    $stmt = $db->prepare("SELECT wachtwoord FROM treinkoerier WHERE email=? LIMIT 1");
+    $stmt = $db->prepare("SELECT idtreinkoerier, wachtwoord FROM treinkoerier WHERE email=?");
     $stmt->execute(array($email));
     $wachtwoorddb = $stmt->fetch();
 
-    print($wachtwoorddb[0]);
-    print("</br><br>" . $wachtwoord . "<br>");
-    //print_r($wachtwoorddb);
-    if ($wachtwoord == $wachtwoorddb[0]) {
+
+    //controle of inloggegevens correct zijn
+    if ($wachtwoord == $wachtwoorddb[1]) {
         $_SESSION["ingelogd"] = true;
-        echo "Geluk! het werkt";
+        $_SESSION["id"] = $wachtwoorddb[0];
+        echo "Succesvol ingelogd";
     } else {
         $foutingelogd = "Onjuiste inloggegevens.";
     }
@@ -35,6 +37,7 @@ if (isset($_POST["submit"])) {
         <title></title>
     </head>
     <body>
+        <!-- formulieren met inputvelden+submit en evt foutmeldingen -->
         <form method="post" action="inloggen.php">
             <p><?php print($foutingelogd); ?></p>
             <p>E-mail:
@@ -47,7 +50,5 @@ if (isset($_POST["submit"])) {
 
             <input type="submit" name="submit" value="Inloggen!">
         </form>
-        Wachtwoord vergeten?  <a href="nieuw_wachtwoord_aanvragen.php">vraag nu een nieuw wachtwoord aan!</a><br> 
-        Heeft u nog geen account?  <a href="nieuw_wachtwoord_aanvragen.php">vraag nu een account aan!</a><br> 
     </body>
 </html>

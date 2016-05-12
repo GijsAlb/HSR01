@@ -87,7 +87,7 @@
             <input type="password" name="wachtwoordbevestig" value="" required>
 
             <p>Geboortedatum:*</p>
-            <input type="date" name="gbdatum" placeholder="dag-maand-jaar" value="<?php print($gbdatum); ?>">
+            <input type="date" name="gbdatum" placeholder="dag-maand-jaar" value="<?php print($gbdatum); ?>" required>
 
             <p>Telnummer:*</p>
             <input type="text" name="telnr" value="<?php print($telnr); ?>" required>
