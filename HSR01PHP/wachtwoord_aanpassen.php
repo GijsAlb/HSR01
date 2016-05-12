@@ -32,7 +32,7 @@ if(isset($_POST['opslaan'])){
     $idcheck = $treinkoerier['ID'];
         if ($querywachtwoordcheck->rowCount() >= 1 && $_SESSION['id'] == $idcheck) {
              
-                if (strlen ($nieuwewachtwoord1) >= 8 && preg_match('/[\'^£$!%&*()}{@#~?><>,|=_+¬-]/', $nieuwewachtwoord1 )){
+                if (strlen ($nieuwewachtwoord1) > 5 && preg_match('/[\'^£$!%&*()}{@#~?><>,|=_+¬-]/', $nieuwewachtwoord1 )){
                      
                 $queryveranderingwachtwoord = $pdo->prepare("UPDATE treinkoerier SET wachtwoord=? WHERE ID=?");
                 $queryveranderingwachtwoord->execute(array($nieuwewachtwoord1sha512, $idcheck));
