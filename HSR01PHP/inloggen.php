@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php
 session_start();
-include "include/config.php";
+include "includes/config.php";
 ?>
 <?php
 $email = "";
