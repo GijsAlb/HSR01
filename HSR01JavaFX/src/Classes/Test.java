@@ -11,11 +11,6 @@ public class Test {
             Class.forName(config.DRIVER).newInstance();
             conn = DriverManager.getConnection(config.URL, config.USERNAME, config.PASSWORD);
             
-            //Inserts
-            String ontvangerInsert = "INSERT INTO ontvanger (idontvanger, naam, adres, woonplaats) VALUES (1, \"Henk\", \"Hoofdstraat\", \"Hoofddorp\");";
-            String afzenderInsert = "INSERT INTO afzender (idafzender, naam, adres, email, woonplaats) VALUES (1, \"Pietje\", \"Pietjestraat\", \"pietje@gmail.com\", \"Pietdorp\");";
-            String pakketInsert = "INSERT INTO pakket (idpakket, lengte, breedte, hoogte, gewicht, afzender_idafzender, ontvanger_idontvanger) VALUES (1, 50, 50, 50, 500, 1, 1);";
-            
             //Selects
             String ontvangerSelect = "SELECT * FROM ontvanger;";
             String pakketSelect = "SELECT * FROM pakket;";

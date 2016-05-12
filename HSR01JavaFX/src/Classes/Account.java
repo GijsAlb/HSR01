@@ -60,6 +60,7 @@ public class Account extends Persoon {
             e.printStackTrace();
         }
     }
-
+    
     //Methods
+    
 }
