@@ -15,9 +15,9 @@ if(isset($_POST['opslaan'])){
      
     if($_POST['vorigewachwoord'] !== "") {
 //post variable opslaan    
-    $nieuwewachtwoord1 = $_POST['nieuwewachwoord1'];
-    $vorigewachtwoord = $_POST['vorigewachwoord'];
-    $nieuwewachtwoord2 = $_POST['nieuwewachwoord2'];
+    $nieuwewachtwoord1 = htmlentities($_POST['nieuwewachwoord1']);
+    $vorigewachtwoord = htmlentities($_POST['vorigewachwoord']);
+    $nieuwewachtwoord2 = htmlentities($_POST['nieuwewachwoord2']);
      
 //encryptie naar sha512    
     $vorigewachtwoordsha512 = hash( 'sha512', $vorigewachtwoord);

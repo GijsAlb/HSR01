@@ -82,7 +82,7 @@ if(isset($_POST['verstuur'])){
     <div id="form">
         <form action="nieuw_wachtwoord_aanvragen.php" method="POST">
             <div class="email">E-mailadres:
-              <input type="text" placeholder="voorbeeld@gmail.com" name="email"><br></div>
+                <input type="email" placeholder="voorbeeld@gmail.com" name="email" required=""><br></div>
                     <input id="knop" type="submit" value="Wachtwoord aanvragen" class="links" name="verstuur">
                            </form></div>
         <div id="foutmelding">
