@@ -35,6 +35,7 @@ public class Account extends Persoon {
     //Setters
     public void setGbdatum(String gbd) {
         //Hier komt een methode die een MySQL Date omzet naar een Java Date
+        //Misschien haalt ie em al goed uit de resultset met getDate()
     }
 
     public void setTelnr(String tnr) {

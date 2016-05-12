@@ -1,16 +1,17 @@
-package Classes;
+package Test;
 
 import java.sql.*;
 import Config.config;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class DatabaseConnection {
+public class DatabaseConnectionTest {
     //Attributes
     private String query;
     
     //Constructors
-    public DatabaseConnection() {
+    public DatabaseConnectionTest() {
         query = "SELECT * FROM pakket;";
     }
     
@@ -32,7 +33,7 @@ public class DatabaseConnection {
                 Integer i = 0;
                 //Door de resultset heen loopen
                 while (rs.next()) {
-                    Map<String, String> tempMap = new LinkedHashMap<>();
+                    Map tempMap = new LinkedHashMap<>();
                     tempMap.put("idpakket", rs.getString("idpakket"));
                     tempMap.put("lengte", rs.getString("lengte"));
                     tempMap.put("breedte", rs.getString("breedte"));
