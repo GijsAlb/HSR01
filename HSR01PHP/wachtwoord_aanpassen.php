@@ -3,8 +3,11 @@
 session_start();
  
 //pagina layout        
-
- 
+//inlog check
+ if (!isset($_SESSION["ingelogd"])) {
+    print("Je moet ingelogd zijn om deze pagina te bekijken!");
+    die();
+}
 $melding = "";
 $foutmelding = "";
  
@@ -28,8 +31,8 @@ if(isset($_POST['opslaan'])){
     $pdo = new PDO("mysql:host=localhost;dbname=micheic28_tztdb;port=3307", "root", "usbw");
     $querywachtwoordcheck = $pdo->prepare("SELECT * FROM treinkoerier WHERE wachtwoord=?");
     $querywachtwoordcheck->execute(array($vorigewachtwoordsha512));
-    $treinkoerier = $querywachtwoordcheck->fetch();
-    $idcheck = $treinkoerier['ID'];
+    $idtreinkoerier = $querywachtwoordcheck->fetch();
+    $idcheck = $idtreinkoerier['id'];
         if ($querywachtwoordcheck->rowCount() >= 1 && $_SESSION['id'] == $idcheck) {
              
                 if (strlen ($nieuwewachtwoord1) > 5 && preg_match('/[\'^£$!%&*()}{@#~?><>,|=_+¬-]/', $nieuwewachtwoord1 )){
