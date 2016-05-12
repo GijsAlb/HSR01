@@ -1,9 +1,9 @@
-package Classes;
+package Test;
 
 import java.sql.*;
 import Config.config;
 
-public class Test {
+public class DatabaseConnectieTest {
 
     public static void main(String[] args) {
         Connection conn;
