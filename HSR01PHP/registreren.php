@@ -1,5 +1,6 @@
 <!doctype html>
 <?php require_once("includes/config.php"); ?>
+<script type="text/javascript" src="includes/wachtwoordcheck.js"></script>
 <htmL>
     <head>
 
@@ -16,9 +17,6 @@
     $postcode = "";
     $huisnr = "";
     $gbdatum = "";
-    $foutwachtwoord = "";
-    $foutwachtwoordbevestig = "";
-    $foutemail = "";
     //als bevestigingsknop is ingedrukt...
     if (isset($_POST["submit"])) {
         //filter input tegen xss met html entities en haalt gegevens op
@@ -37,14 +35,8 @@
         $postcode = str_replace(" ", "", $postcodeinput);
         //wachtwoorden overeenkomen
         if ($wachtwoord != $wachtwoordbevestig) {
-            $foutwachtwoordbevestig = "Wachtwoorden komen niet overeen.";
+            print("Wachtwoorden komen niet overeen.");
             $fout = true;
-        }
-        if (ctype_alnum($_POST["wachtwoord"]) == true) {
-            $foutwachtwoord = "Het wachtwoord moet minimaal 1 symbool bevatten.";
-            $fout = true;
-        } elseif (strlen($_POST["wachtwoord"]) < 6) {
-            $foutwachtwoord = "Het wachtwoord moet uit minimaal 6 karakters bestaan.";
         }
         //check zodat je geen datum in de toekomst kan kiezen
         if ($vandaag < $_POST["gbdatum"]) {
@@ -69,7 +61,7 @@
                 print("Registratie gelukt!");
             } catch (PDOException $e) {
                 if ($e->errorInfo[1] == 1062) {
-                    $foutemail = "Email adres is reeds in gebruik!";
+                    ("E-mailadres is reeds in gebruik!");
                 }
             }
         }
@@ -79,47 +71,30 @@
         <form method="post" action="registreren.php">
             <h1>Registreren</h1>
 
-            <p>
-                Voornaam:*
-                <input type="text" name="voornaam" value="<?php print($voornaam); ?>" required>
-            </p>
+            <p>Voornaam:*</p>
+            <input type="text" name="voornaam" value="<?php print($voornaam); ?>" required>
 
-            <p>
-                Achternaam:*
-                <input type="text" name="achternaam" value="<?php print($achternaam); ?>" required>
-            </p>
+            <p>Achternaam:*</p>
+            <input type="text" name="achternaam" value="<?php print($achternaam); ?>" required>
 
-            <p>
-                E-mail:*
-                <input type="email" name="email" value="<?php print($email); ?>" required>
-                <?php print($foutemail); ?>
-            </p>
+            <p>E-mail:*</p>
+            <input type="email" name="email" value="<?php print($email); ?>" required>
 
-            <p>
-                Wachtwoord:*
-                <input type="password" name="wachtwoord" value="" required>
-                <?php print($foutwachtwoord); ?>
-            </p>
+            <p>Wachtwoord:*</p>
+            <input type="password" name="wachtwoord" value="" required>
 
-            <p>
-                Wachtwoord bevestigen:*
-                <input type="password" name="wachtwoordbevestig" value="" required>
-                <?php print($foutwachtwoordbevestig); ?>
-            </p>
+            <p>Wachtwoord bevestigen:*</p>
+            <input type="password" name="wachtwoordbevestig" value="" required>
 
-            <p>
-                Geboortedatum:*
-                <input type="date" name="gbdatum" placeholder="dd-mm-jjjj" value="<?php print($gbdatum); ?>">
-            </p>
+            <p>Geboortedatum:*</p>
+            <input type="date" name="gbdatum" placeholder="dag-maand-jaar" value="<?php print($gbdatum); ?>">
 
-            <p>
-                Telnummer:*
-                <input type="text" name="telnr" value="<?php print($telnr); ?>" required>
-            </p>
+            <p>Telnummer:*</p>
+            <input type="text" name="telnr" value="<?php print($telnr); ?>" required>
 
             <p>
                 Postcode:*
-                <input type="text" name="postcode" placeholder="1111AA" pattern="[1-9][0-9]{3}[a-zA-Z]{2}" value="<?php print($postcode) ?>" required>
+                <input type="text" name="postcode" value="<?php print($postcode) ?>" required>
 
                 Huisnummer:*
                 <input type="text" name="huisnr" value="<?php print($huisnr) ?>" required>
