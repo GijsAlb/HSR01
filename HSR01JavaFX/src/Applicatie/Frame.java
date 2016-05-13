@@ -21,17 +21,20 @@ public class Frame extends JFrame {
         setSize(1280, 720);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
+        int rows = 7;
         dbc = d;
         dbHashMap = dbc.connect();
-        setLayout(new GridLayout(10,dbHashMap.size()));
-        jlabels = new JLabel[dbHashMap.size()][5];
-        labels = new String[5];
+        setLayout(new GridLayout(rows * 2,dbHashMap.size()));
+        jlabels = new JLabel[dbHashMap.size()][rows];
+        labels = new String[rows];
         
         labels[0] = "Pakket id:";
-        labels[1] = "Lengte:";
-        labels[2] = "Breedte:";
-        labels[3] = "Hoogte:";
-        labels[4] = "Gewicht:";
+        labels[1] = "Barcode:";
+        labels[2] = "Locatie:";
+        labels[3] = "Lengte:";
+        labels[4] = "Breedte:";
+        labels[5] = "Hoogte:";
+        labels[6] = "Gewicht:";
         
         hashMapToJLabels(dbHashMap);
         for(int a = 0; a < jlabels.length; a++) {
