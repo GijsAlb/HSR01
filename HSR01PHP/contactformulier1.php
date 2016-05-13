@@ -22,7 +22,7 @@ date_default_timezone_set('Europe/Amsterdam');
         <?php
         if (isset($_POST['verstuur'])) {
             //set variable voor de rest
-            $invoeremail = htmlentities($_POST['email']);
+            $invoeremail = ("TZT@gmail.com");
 
 //mail maken en versturen
                 $naar = $invoeremail;
