@@ -73,7 +73,7 @@ if (isset($_POST["knop"])) {
             print("We konden geen verbinding maken met ons systeem, probeer het later opnieuw!");
             $fout = true;
         }
-        echo "</br></br>";
+
         //parser voor xml zodat je het kan gebruiken
         $xmlobj = simplexml_load_string($output);
         //dan encode en decode meteen en de true maakt het een array zonder true heb je een jsonobject

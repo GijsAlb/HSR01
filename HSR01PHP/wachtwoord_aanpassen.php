@@ -29,18 +29,18 @@ if(isset($_POST['opslaan'])){
  
 //query opzoeken of het vorige wachtwoord juist is
     $pdo = new PDO("mysql:host=localhost;dbname=micheic28_tztdb;port=3307", "root", "usbw");
-    $querywachtwoordcheck = $pdo->prepare("SELECT * FROM treinkoerier WHERE wachtwoord=?");
+    $querywachtwoordcheck = $pdo->prepare("SELECT idtreinkoerier FROM treinkoerier WHERE wachtwoord=?");
     $querywachtwoordcheck->execute(array($vorigewachtwoordsha512));
     $idtreinkoerier = $querywachtwoordcheck->fetch();
-    $idcheck = $idtreinkoerier['id'];
+    $idcheck = $idtreinkoerier[0];
         if ($querywachtwoordcheck->rowCount() >= 1 && $_SESSION['id'] == $idcheck) {
              
                 if (strlen ($nieuwewachtwoord1) > 5 && preg_match('/[\'^£$!%&*()}{@#~?><>,|=_+¬-]/', $nieuwewachtwoord1 )){
                      
-                $queryveranderingwachtwoord = $pdo->prepare("UPDATE treinkoerier SET wachtwoord=? WHERE ID=?");
+                $queryveranderingwachtwoord = $pdo->prepare("UPDATE treinkoerier SET wachtwoord=? WHERE idtreinkoerier=?");
                 $queryveranderingwachtwoord->execute(array($nieuwewachtwoord1sha512, $idcheck));
             if($queryveranderingwachtwoord->rowCount() == 1){        
-                $melding = "Uw wachtwoord is veranderd. U wordt naar de startpagina doorgestuurd waar u met net nieuwe wachtwoord kan inloggen. als U na 5 seconden nog niet bent doorgestuurd druk dan  <a href='uitloggen.php'> hier</a> <?php om naar de startpagina te gaan. ";
+                $melding = "Uw wachtwoord is veranderd.";
                 $_SESSION['pagina'] = "wachtwoordaanpassen";
                 header("refresh:5;url=uitloggen.php");
             }   else{
@@ -67,26 +67,26 @@ if(isset($_POST['opslaan'])){
     </head>
     <body>
          
-        <div id="titel">
+        <div>
             Wachtwoord aanpassen
         </div><br>
          
-        <div id="tekst">
+        <div> 
             Op deze pagina kunt u uw wachtwoord aanpassen. <br><br> Als u hier bent omdat u uw wachtwoord bent vergeten vul dan bij vorig wachtwoord het wachtwoord in die u via de mail ontvangen heeft.
         </div><br>
  
-        <div id="form">
+        <div>
             <form action="wachtwoord_aanpassen.php" method="POST">
                 <label>Uw vorige wachtwoord:</label>
-                    <input type="password" placeholder="*****" name="vorigewachwoord"><br><br><br>
+                <input type="password" placeholder="*****" name="vorigewachwoord" value="" required=""><br><br><br>
                 <label>Uw nieuwe wachtwoord:</label>   
-                    <input type="password" placeholder="*****" name="nieuwewachwoord1"><br><br><br>
+                <input type="password" placeholder="*****" name="nieuwewachwoord1" value="" required=""><br><br><br>
                 <label>Nog een keer uw nieuwe wachtwoord:</label> 
-                    <input type="password" placeholder="*****" name="nieuwewachwoord2"><br><br><br>
-                <div id="wachtwoordinformatie"> Uw wachtwoord moet minstens uit 8 tekens bestaan en moet minimaal één speciale teken bevatten. </div>
+                <input type="password" placeholder="*****" name="nieuwewachwoord2" value="" required=""><br><br><br>
+                    <div>  Uw wachtwoord moet minstens uit 8 tekens bestaan en moet minimaal één speciale teken bevatten. </div>
                 <input type="submit" id="knop" value="Opslaan" name="opslaan"><br>
             </form>
-            <div id="foutmeldingen">
+            <div>
                     <?php  
                     print $foutmelding;
                     print $melding;
