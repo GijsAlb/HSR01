@@ -11,6 +11,7 @@ public class DatabaseConnection {
     
     //Constructors
     public DatabaseConnection() {
+        //Moet ook nog info ontvanger, verzender etc. ophalen
         query = "SELECT * FROM pakket;";
     }
     
@@ -34,6 +35,8 @@ public class DatabaseConnection {
                 while (rs.next()) {
                     Map<String, String> tempMap = new LinkedHashMap<>();
                     tempMap.put("idpakket", rs.getString("idpakket"));
+                    tempMap.put("barcode", rs.getString("barcode"));
+                    tempMap.put("barcode", rs.getString("locatie"));
                     tempMap.put("lengte", rs.getString("lengte"));
                     tempMap.put("breedte", rs.getString("breedte"));
                     tempMap.put("hoogte", rs.getString("hoogte"));
