@@ -1,5 +1,5 @@
 import Applicatie.Frame;
-import Classes.DatabaseConnection;
+import Functions.DatabaseConnection;
 
 public class Main {
     
