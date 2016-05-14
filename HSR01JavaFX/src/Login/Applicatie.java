@@ -24,37 +24,33 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-/**
- *
- * @author Bram
- */
 public class Applicatie extends Application {
-
+    
     //Attributes
     private String checkGebruikersnaam, checkWachtwoord;
     private ArrayList<LinkedHashMap<String, String>> gebruikersnamenEnWachtwoorden;
-
+    
     //Constructors
     public Applicatie() {
         DatabaseArrayListHashMap dba = new DatabaseArrayListHashMap();
         gebruikersnamenEnWachtwoorden = new ArrayList<>(dba.fetchData("SELECT gebruikersnaam, wachtwoord FROM backoffice_account;", "gebruikersnaam", "wachtwoord"));
     }
-
+    
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Pakketmonitor");
-
+        
         GridPane grid = new GridPane();
-
-        grid.setAlignment(Pos.CENTER);
+        
+        grid.setAlignment(Pos.TOP_CENTER);
         grid.setHgap(10);
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
-
+        
         Text scenetitel = new Text("Welkom!");
         scenetitel.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
         grid.add(scenetitel, 0, 0, 2, 1);
-
+        
         //Nodes aanmaken
         Label LGebruikersnaam = new Label("Gebruikersnaam:");
         TextField TFGebruikersnaam = new TextField();
@@ -62,7 +58,7 @@ public class Applicatie extends Application {
         PasswordField PFWachtwoord = new PasswordField();
         Button BInloggen = new Button("Inloggen");
         final Text TMelding = new Text();
-
+        
         //Nodes toevoegen aan de GridPane
         grid.add(LGebruikersnaam, 0, 1);
         grid.add(TFGebruikersnaam, 1, 1);
@@ -76,7 +72,7 @@ public class Applicatie extends Application {
         HBMelding.setAlignment(Pos.CENTER_RIGHT);
         HBMelding.getChildren().add(TMelding);
         grid.add(HBMelding, 1, 6);
-
+        
         //Handling voor BTInloggen
         BInloggen.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -97,26 +93,24 @@ public class Applicatie extends Application {
                         }
 
                     }
-                    it.remove();
                 }
                 if (doorgaan) {
                     TMelding.setFill(Color.FIREBRICK);
                     TMelding.setText("Gebruikersnaam en/of \nwachtwoord is onjuist. \nProbeer het opnieuw.");
                 } else {
                     TMelding.setFill(Color.DARKGREEN);
-                    TMelding.setText("Gebruikersnaam en wachtwoord zijn juist");
+                    TMelding.setText("Gebruikersnaam en \nwachtwoord zijn juist");
                 }
                 TFGebruikersnaam.setText("");
                 PFWachtwoord.setText("");
             }
         });
-
-        grid.setGridLinesVisible(true);
+        
+//        grid.setGridLinesVisible(true);
         Scene scene = new Scene(grid, 400, 275);
-//        scene.getStylesheets().add(getClass().getClassLoader().getResource("login.css").toExternalForm());
         primaryStage.setScene(scene);
+        
 //        primaryStage.setResizable(false);
-
         primaryStage.show();
     }
 

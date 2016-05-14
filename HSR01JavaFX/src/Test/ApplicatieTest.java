@@ -1,7 +1,7 @@
 package Test;
 
 import Login.*;
-import Functions.DatabaseArrayList;
+import Functions.DatabaseEenVeld;
 import Functions.DatabaseArrayListHashMap;
 import Functions.Hasher;
 import java.util.ArrayList;
