@@ -25,7 +25,7 @@ public class HashTest {
         System.out.println(hasher.hash("SHA-512", "hello"));
         System.out.println(hasher.hash("SHA-512", "hello").length() + "\n");
         
-        System.out.println(hasher.hash("SHA-512", "ww"));
+        System.out.println(hasher.hash("SHA-512", "pw"));
     }
     
 }
