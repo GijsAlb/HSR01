@@ -14,6 +14,7 @@ public class DatabaseMeerdereVelden {
         data = new ArrayList<>();
         Connection conn;
         try {
+            //MySQL driver aanroepen
             Class.forName(config.DRIVER).newInstance();
             //Connectie wordt gemaakt
             conn = DriverManager.getConnection(config.URL, config.USERNAME, config.PASSWORD);

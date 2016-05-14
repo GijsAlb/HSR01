@@ -12,7 +12,7 @@ public class Applicatie extends Application {
         LoginGridPane grid = new LoginGridPane();
         
 //        grid.setGridLinesVisible(true);
-        Scene scene = new Scene(grid, 400, 275);
+        Scene scene = new Scene(grid, 400, 250);
         primaryStage.setScene(scene);
         
 //        primaryStage.setResizable(false);

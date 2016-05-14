@@ -1,7 +1,9 @@
 package Applicatie;
 
+import Functions.DatabaseTableView;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -16,7 +18,11 @@ public class OverzichtGridPane extends GridPane {
         setPadding(new Insets(25, 25, 25, 25));
         
         Text overzichtTitel = new Text("Welkom bij het tweede scherm!");
-        overzichtTitel.setFont(Font.font("Tahoma", FontWeight.NORMAL, 5));
+        overzichtTitel.setFont(Font.font("Tahoma", FontWeight.NORMAL, 15));
         add(overzichtTitel, 0, 0);
+        
+        DatabaseTableView dbtv = new DatabaseTableView();
+        TableView pakkettenTabel = dbtv.fetchData("SELECT * FROM pakket;");
+        getScene().setRoot(pakkettenTabel);
     }
 }
