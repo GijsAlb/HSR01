@@ -14,7 +14,7 @@
         <!-- Bootstrap Core CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" >
 
-        <!-- CSS -->
+
         <link rel="stylesheet" href="css.css">
         <link rel="stylesheet" href="overOns.css">
 
@@ -75,6 +75,7 @@
                 $stmt->execute(array($voornaam, $achternaam, $email, $wachtwoord, $gbdatum, $telnr, $postcode, $huisnr));
                 print("Registratie gelukt!");
             } catch (PDOException $e) {
+                print($e->getMessage());
                 if ($e->errorInfo[1] == 1062) {
                     ("E-mailadres is reeds in gebruik!");
                 }
