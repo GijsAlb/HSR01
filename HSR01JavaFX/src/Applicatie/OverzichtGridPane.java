@@ -15,9 +15,8 @@ public class OverzichtGridPane extends GridPane {
         setVgap(10);
         setPadding(new Insets(25, 25, 25, 25));
         
-        getScene().
-        Text scenetitel = new Text("Welkom bij het tweede scherm!");
-        scenetitel.setFont(Font.font("Arial", FontWeight.NORMAL, 20));
-        add(scenetitel, 0, 0, 2, 1);
+        Text overzichtTitel = new Text("Welkom bij het tweede scherm!");
+        overzichtTitel.setFont(Font.font("Tahoma", FontWeight.NORMAL, 5));
+        add(overzichtTitel, 0, 0);
     }
 }

@@ -1,4 +1,6 @@
-import Applicatie.Frame;
+package Verouderd;
+
+import Verouderd.Frame;
 import Functions.DatabaseConnection;
 
 public class Main {
