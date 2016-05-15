@@ -1,6 +1,7 @@
-package Applicatie;
+package Verouderd;
 
 import Functions.DatabaseArrayListHashMap;
+import Functions.DatabaseTableView;
 import Functions.Hasher;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -28,8 +29,7 @@ public class LoginGridPane extends GridPane {
     
     //Constructors
     public LoginGridPane() {
-        DatabaseArrayListHashMap dba = new DatabaseArrayListHashMap();
-        gebruikersnamenEnWachtwoorden = new ArrayList<>(dba.fetchData("SELECT gebruikersnaam, wachtwoord FROM backoffice_account;", "gebruikersnaam", "wachtwoord"));
+        gebruikersnamenEnWachtwoorden = new ArrayList<>(DatabaseArrayListHashMap.fetchData("SELECT gebruikersnaam, wachtwoord FROM backoffice_account;", "gebruikersnaam", "wachtwoord"));
         
         setAlignment(Pos.TOP_CENTER);
         setHgap(10);
@@ -67,8 +67,7 @@ public class LoginGridPane extends GridPane {
             @Override
             public void handle(ActionEvent e) {
                 checkGebruikersnaam = TFGebruikersnaam.getText();
-                Hasher hasher = new Hasher();
-                checkWachtwoord = hasher.hash("SHA-512", PFWachtwoord.getText());
+                checkWachtwoord = Hasher.hash("SHA-512", PFWachtwoord.getText());
                 boolean doorgaan = true;
                 forloop:
                 for (LinkedHashMap<String, String> lhm : gebruikersnamenEnWachtwoorden) {

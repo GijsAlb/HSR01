@@ -1,6 +1,5 @@
 package Verouderd;
 
-import Functions.DatabaseConnection;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Iterator;

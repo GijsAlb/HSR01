@@ -4,7 +4,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class Hasher {
-    public String hash(String algorithm, String message) {
+    public static String hash(String algorithm, String message) {
         try {
             MessageDigest md = MessageDigest.getInstance(algorithm);
             md.update(message.getBytes());

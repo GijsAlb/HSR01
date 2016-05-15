@@ -1,4 +1,4 @@
-package Applicatie;
+package Verouderd;
 
 import Config.config;
 import java.sql.Connection;
@@ -31,7 +31,6 @@ public class FactuurSysteemBeheerder extends Application{
     public static void main(String[] args) {
         launch(args);
     }
-
     
     public void buildData(){
           Connection conn ;

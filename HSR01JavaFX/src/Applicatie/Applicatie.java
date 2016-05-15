@@ -1,22 +1,18 @@
 package Applicatie;
 
 import javafx.application.Application;
-import javafx.scene.Scene;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class Applicatie extends Application {
     @Override
-    public void start(Stage primaryStage) {
-        primaryStage.setTitle("Pakketmonitor");
+    public void start(Stage stage) {
+        stage.setTitle("Pakketmonitor");
         
-        LoginGridPane grid = new LoginGridPane();
+        stage.setScene(new LoginScene(stage, new GridPane(), 400, 250));
         
-//        grid.setGridLinesVisible(true);
-        Scene scene = new Scene(grid, 400, 250);
-        primaryStage.setScene(scene);
-        
-//        primaryStage.setResizable(false);
-        primaryStage.show();
+//        stage.setResizable(false);
+        stage.show();
     }
 
     /**

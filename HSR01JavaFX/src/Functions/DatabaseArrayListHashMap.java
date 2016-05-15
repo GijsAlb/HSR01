@@ -7,15 +7,12 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class DatabaseArrayListHashMap {
-
-    //Attributes
-    private ArrayList<LinkedHashMap<String, String>> data;
-
-    //Methods
-    public ArrayList<LinkedHashMap<String, String>> fetchData(String query, String veld1, String veld2) {
-        data = new ArrayList<>();
+    //Voert een query uit, zet de twee meegegeven velden in een LinkedHashMap en zet deze LinkedHashMaps vervolgens in een overkoepelende ArrayList, die wordt gereturnd
+    public static ArrayList<LinkedHashMap<String, String>> fetchData(String query, String veld1, String veld2) {
+        ArrayList<LinkedHashMap<String, String>> data = new ArrayList<>();
         Connection conn;
         try {
+            //MySQL driver aanroepen
             Class.forName(config.DRIVER).newInstance();
             //Connectie wordt gemaakt
             conn = DriverManager.getConnection(config.URL, config.USERNAME, config.PASSWORD);

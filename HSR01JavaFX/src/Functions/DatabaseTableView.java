@@ -4,6 +4,7 @@ import Config.config;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -13,14 +14,9 @@ import javafx.scene.control.TableView;
 import javafx.util.Callback;
 
 public class DatabaseTableView {
-
-    //Attributes
-    private ObservableList<ObservableList<String>> data;
-    private TableView tableview;
-
-    //Methods
-    public TableView fetchData(String query) {
-        data = FXCollections.observableArrayList();
+    public static TableView fetchData(String query) {
+        TableView tableview = new TableView();
+        ObservableList<ObservableList<String>> data = FXCollections.observableArrayList();
         Connection conn;
         try {
             //MySQL driver aanroepen  
@@ -61,8 +57,8 @@ public class DatabaseTableView {
             //Voegt alle data toe aan tableview
             tableview.setItems(data);
             return tableview;
-        } catch (Exception e) {
-            System.out.println("Kan geen database verbinding maken.");
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException ex) {
+            System.err.println(ex.getMessage());
             return null;
         }
     }

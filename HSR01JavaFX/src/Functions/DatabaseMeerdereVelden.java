@@ -5,13 +5,9 @@ import Config.config;
 import java.util.ArrayList;
 
 public class DatabaseMeerdereVelden {
-
-    //Attributes
-    private ArrayList<ArrayList<String>> data;
-
-    //Methods
-    public ArrayList<ArrayList<String>> fetchData(String query, ArrayList<String> velden) {
-        data = new ArrayList<>();
+    //Voert een query uit, zet de meegegeven velden in een ArrayList en zet deze ArrayLists vervolgens in één overkoepelende ArrayList, die wordt gereturnd
+    public static ArrayList<ArrayList<String>> fetchData(String query, ArrayList<String> velden) {
+        ArrayList<ArrayList<String>> data = new ArrayList<>();
         Connection conn;
         try {
             //MySQL driver aanroepen

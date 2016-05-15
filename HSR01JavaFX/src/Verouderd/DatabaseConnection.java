@@ -1,17 +1,17 @@
-package Test;
+package Verouderd;
 
 import java.sql.*;
 import Config.config;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class DatabaseConnectionTest {
+public class DatabaseConnection {
     //Attributes
     private String query;
     
     //Constructors
-    public DatabaseConnectionTest() {
+    public DatabaseConnection() {
+        //Moet ook nog info ontvanger, verzender etc. ophalen
         query = "SELECT * FROM pakket;";
     }
     
@@ -33,8 +33,10 @@ public class DatabaseConnectionTest {
                 Integer i = 0;
                 //Door de resultset heen loopen
                 while (rs.next()) {
-                    Map tempMap = new LinkedHashMap<>();
+                    Map<String, String> tempMap = new LinkedHashMap<>();
                     tempMap.put("idpakket", rs.getString("idpakket"));
+                    tempMap.put("barcode", rs.getString("barcode"));
+                    tempMap.put("locatie", rs.getString("locatie"));
                     tempMap.put("lengte", rs.getString("lengte"));
                     tempMap.put("breedte", rs.getString("breedte"));
                     tempMap.put("hoogte", rs.getString("hoogte"));

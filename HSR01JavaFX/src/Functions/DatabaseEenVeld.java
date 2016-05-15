@@ -5,14 +5,12 @@ import Config.config;
 import java.util.ArrayList;
 
 public class DatabaseEenVeld {
-    //Attributes
-    private ArrayList<String> data;
-
-    //Methods
-    public ArrayList<String> fetchData(String query, String veld) {
-        data = new ArrayList<>();
+    //Voert een query uit, zet het meegegeven veld in een ArrayList, die wordt gereturnd
+    public static ArrayList<String> fetchData(String query, String veld) {
+        ArrayList<String> data = new ArrayList<>();
         Connection conn;
         try {
+            //MySQL driver aanroepen
             Class.forName(config.DRIVER).newInstance();
             //Connectie wordt gemaakt
             conn = DriverManager.getConnection(config.URL, config.USERNAME, config.PASSWORD);
