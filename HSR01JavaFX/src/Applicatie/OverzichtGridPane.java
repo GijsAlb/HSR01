@@ -21,8 +21,8 @@ public class OverzichtGridPane extends GridPane {
         overzichtTitel.setFont(Font.font("Tahoma", FontWeight.NORMAL, 15));
         add(overzichtTitel, 0, 0);
         
-        DatabaseTableView dbtv = new DatabaseTableView();
-        TableView pakkettenTabel = dbtv.fetchData("SELECT * FROM pakket;");
-        getScene().setRoot(pakkettenTabel);
+//        DatabaseTableView dbtv = new DatabaseTableView();
+//        TableView pakkettenTabel = dbtv.fetchData("SELECT * FROM pakket;");
+//        getScene().setRoot(pakkettenTabel);
     }
 }
