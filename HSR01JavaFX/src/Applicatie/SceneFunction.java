@@ -97,6 +97,7 @@ public class SceneFunction {
         });
 
         Scene loginScene = new Scene(grid, 400, 250);
+        loginScene.getStylesheets().add("file:src/CSS/stylesheet.css");
         loginScene.setRoot(grid);
         return loginScene;
     }
@@ -104,14 +105,21 @@ public class SceneFunction {
     public static Scene overzichtScene(Stage stage) {
         TabPane tabPane = new TabPane();
         
+        //Tabje met alle pakketten erop
         Tab pakketTab = new Tab();
         pakketTab.setText("Pakketten");
-        pakketTab.setContent(DatabaseTableView.fetchData("SELECT * FROM pakket;"));
+        pakketTab.setContent(DatabaseTableView.fetchData("SELECT idpakket, barcode, locatie, lengte, breedte, hoogte, gewicht FROM pakket;"));
+        
+        //Tabje met alle backoffice accounts
+        Tab accountTab = new Tab();
+        accountTab.setText("Accounts");
+        accountTab.setContent(DatabaseTableView.fetchData("SELECT accountid, gebruikersnaam, wachtwoord_tijdelijk, wachtwoord FROM backoffice_account;"));
         
         //Tabs toevoegen aan de TabPane
-        tabPane.getTabs().add(pakketTab);
+        tabPane.getTabs().addAll(pakketTab, accountTab);
         
         Scene overzichtScene = new Scene(tabPane, 1280, 720);
+        overzichtScene.getStylesheets().add("file:src/CSS/stylesheet.css");
         overzichtScene.setRoot(tabPane);
         return overzichtScene;
     }
