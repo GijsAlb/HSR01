@@ -1,5 +1,6 @@
 package Applicatie;
 
+import Config.config;
 import Functions.DatabaseArrayListHashMap;
 import Functions.DatabaseTableView;
 import Functions.Hasher;
@@ -97,7 +98,7 @@ public class SceneFunction {
         });
 
         Scene loginScene = new Scene(grid, 400, 250);
-        loginScene.getStylesheets().add("file:src/CSS/stylesheet.css");
+        loginScene.getStylesheets().add(config.CSS);
         loginScene.setRoot(grid);
         return loginScene;
     }
@@ -119,7 +120,7 @@ public class SceneFunction {
         tabPane.getTabs().addAll(pakketTab, accountTab);
         
         Scene overzichtScene = new Scene(tabPane, 1280, 720);
-        overzichtScene.getStylesheets().add("file:src/CSS/stylesheet.css");
+        overzichtScene.getStylesheets().add(config.CSS);
         overzichtScene.setRoot(tabPane);
         return overzichtScene;
     }
