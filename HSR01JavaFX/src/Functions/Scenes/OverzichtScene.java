@@ -15,7 +15,21 @@ public class OverzichtScene {
         //Tabje met alle pakketten erop
         Tab pakketTab = new Tab();
         pakketTab.setText("Pakketten");
-        pakketTab.setContent(DatabaseTableView.fetchData("SELECT idpakket, barcode, locatie, lengte, breedte, hoogte, gewicht FROM pakket;"));
+        pakketTab.setContent(DatabaseTableView.fetchData("SELECT idpakket AS Pakketid, "
+                                                              + "barcode AS Barcode, "
+                                                              + "(CASE locatie "
+                                                                  + "WHEN 0 THEN 'Niet gekoppeld' "
+                                                                  + "WHEN 1 THEN 'Opgehaald' "
+                                                                  + "WHEN 2 THEN 'Onderweg' "
+                                                                  + "WHEN 3 THEN 'Niet gekoppeld' "
+                                                                  + "WHEN 4 THEN 'Afgeleverd' "
+                                                                  + "ELSE 'Locatie onbekend' "
+                                                              + "END) AS Locatie, "
+                                                              + "lengte as Lengte, "
+                                                              + "breedte AS Breedte, "
+                                                              + "hoogte AS Hoogte, "
+                                                              + "gewicht AS Gewicht "
+                                                        + "FROM pakket;"));
         
         //Tabje met alle backoffice accounts
         Tab accountTab = new Tab();
