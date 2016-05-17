@@ -90,6 +90,7 @@ public class SceneFunction {
                 TMelding.setFill(Color.DARKGREEN);
                 TMelding.setText("Gebruikersnaam en \nwachtwoord zijn juist");
                 stage.setScene(SceneFunction.overzichtScene(stage));
+                stage.setResizable(true);
                 stage.centerOnScreen();
 //                    stage.setFullScreen(true);
             }
@@ -98,6 +99,7 @@ public class SceneFunction {
         });
 
         Scene loginScene = new Scene(grid, 400, 250);
+//        loginScene.getStylesheets().add("file:src/CSS/JMetroDarkTheme.css");
         loginScene.getStylesheets().add(config.CSS);
         loginScene.setRoot(grid);
         return loginScene;
@@ -118,8 +120,13 @@ public class SceneFunction {
         
         //Tabs toevoegen aan de TabPane
         tabPane.getTabs().addAll(pakketTab, accountTab);
+        //Tabjes kunnen niet meer gesloten worden
+        for(Tab tab : tabPane.getTabs()) {
+            tab.setClosable(false);
+        }
         
         Scene overzichtScene = new Scene(tabPane, 1280, 720);
+//        overzichtScene.getStylesheets().add("file:src/CSS/JMetroDarkTheme.css");
         overzichtScene.getStylesheets().add(config.CSS);
         overzichtScene.setRoot(tabPane);
         return overzichtScene;
