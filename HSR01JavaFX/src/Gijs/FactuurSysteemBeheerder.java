@@ -42,7 +42,7 @@ public class FactuurSysteemBeheerder extends Application{
             //Connectie wordt gemaakt
             conn = DriverManager.getConnection(config.URL, config.USERNAME, config.PASSWORD);
             //sql query
-            String SQL = "SELECT idpakket, afzender_idafzender from pakket";
+            String SQL = "SELECT * from pakket";
             //resultset met opgehaalde gegevens uit db
             ResultSet rs = conn.createStatement().executeQuery(SQL);
 
