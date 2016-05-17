@@ -1,7 +1,7 @@
 package Test;
 
-import Functions.DatabaseEenVeld;
-import Functions.DatabaseArrayListHashMap;
+import Functions.Database.DatabaseEenVeld;
+import Functions.Database.DatabaseArrayListHashMap;
 import Functions.Hasher;
 import java.util.ArrayList;
 import java.util.Iterator;

@@ -1,13 +1,15 @@
-package Functions;
+package Functions.Database;
 
 import java.sql.*;
 import Config.config;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
-public class DatabaseMeerdereVelden {
-    //Voert een query uit, zet de meegegeven velden in een ArrayList en zet deze ArrayLists vervolgens in één overkoepelende ArrayList, die wordt gereturnd
-    public static ArrayList<ArrayList<String>> fetchData(String query, ArrayList<String> velden) {
-        ArrayList<ArrayList<String>> data = new ArrayList<>();
+public class DatabaseArrayListHashMap {
+    //Voert een query uit, zet de twee meegegeven velden in een LinkedHashMap en zet deze LinkedHashMaps vervolgens in een overkoepelende ArrayList, die wordt gereturnd
+    public static ArrayList<LinkedHashMap<String, String>> fetchData(String query, String veld1, String veld2) {
+        ArrayList<LinkedHashMap<String, String>> data = new ArrayList<>();
         Connection conn;
         try {
             //MySQL driver aanroepen
@@ -21,12 +23,10 @@ public class DatabaseMeerdereVelden {
                 ResultSet rs = st.executeQuery(query);
                 //Door de resultset heen loopen en toevoegen aan de ArrayList
                 while (rs.next()) {
-                    ArrayList<String> tempArrayList = new ArrayList<>();
-                    for (String i : velden) {
-                        tempArrayList.add(rs.getString(i));
-                    }
-                    data.add(new ArrayList<>(tempArrayList));
-                    tempArrayList.clear();
+                    Map<String, String> tempMap = new LinkedHashMap<>();
+                    tempMap.put(rs.getString(veld1),rs.getString(veld2));
+                    data.add(new LinkedHashMap<>(tempMap));
+                    tempMap.clear();
                 }
                 return data;
             } catch (SQLException ex) {

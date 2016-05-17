@@ -1,13 +1,13 @@
-package Functions;
+package Functions.Database;
 
 import java.sql.*;
 import Config.config;
 import java.util.ArrayList;
 
-public class DatabaseEenVeld {
-    //Voert een query uit, zet het meegegeven veld in een ArrayList, die wordt gereturnd
-    public static ArrayList<String> fetchData(String query, String veld) {
-        ArrayList<String> data = new ArrayList<>();
+public class DatabaseMeerdereVelden {
+    //Voert een query uit, zet de meegegeven velden in een ArrayList en zet deze ArrayLists vervolgens in één overkoepelende ArrayList, die wordt gereturnd
+    public static ArrayList<ArrayList<String>> fetchData(String query, ArrayList<String> velden) {
+        ArrayList<ArrayList<String>> data = new ArrayList<>();
         Connection conn;
         try {
             //MySQL driver aanroepen
@@ -21,7 +21,12 @@ public class DatabaseEenVeld {
                 ResultSet rs = st.executeQuery(query);
                 //Door de resultset heen loopen en toevoegen aan de ArrayList
                 while (rs.next()) {
-                    data.add(rs.getString(veld));
+                    ArrayList<String> tempArrayList = new ArrayList<>();
+                    for (String i : velden) {
+                        tempArrayList.add(rs.getString(i));
+                    }
+                    data.add(new ArrayList<>(tempArrayList));
+                    tempArrayList.clear();
                 }
                 return data;
             } catch (SQLException ex) {

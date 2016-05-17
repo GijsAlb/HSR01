@@ -1,4 +1,4 @@
-package Functions;
+package Functions.Database;
 
 import Config.config;
 import java.sql.Connection;

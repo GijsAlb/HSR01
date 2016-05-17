@@ -1,7 +1,7 @@
 package Test;
 
 import Applicatie.*;
-import Functions.DatabaseArrayListHashMap;
+import Functions.Database.DatabaseArrayListHashMap;
 import Functions.Hasher;
 import java.util.ArrayList;
 import java.util.Iterator;

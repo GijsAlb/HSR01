@@ -1,7 +1,7 @@
 package Verouderd;
 
-import Functions.DatabaseArrayListHashMap;
-import Functions.DatabaseTableView;
+import Functions.Database.DatabaseArrayListHashMap;
+import Functions.Database.DatabaseTableView;
 import Functions.Hasher;
 import java.util.ArrayList;
 import java.util.Iterator;

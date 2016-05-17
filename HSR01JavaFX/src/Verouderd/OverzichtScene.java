@@ -1,6 +1,6 @@
 package Verouderd;
 
-import Functions.DatabaseTableView;
+import Functions.Database.DatabaseTableView;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Tab;

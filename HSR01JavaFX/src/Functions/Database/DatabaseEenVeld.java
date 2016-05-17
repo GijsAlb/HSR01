@@ -1,15 +1,13 @@
-package Functions;
+package Functions.Database;
 
 import java.sql.*;
 import Config.config;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
-public class DatabaseArrayListHashMap {
-    //Voert een query uit, zet de twee meegegeven velden in een LinkedHashMap en zet deze LinkedHashMaps vervolgens in een overkoepelende ArrayList, die wordt gereturnd
-    public static ArrayList<LinkedHashMap<String, String>> fetchData(String query, String veld1, String veld2) {
-        ArrayList<LinkedHashMap<String, String>> data = new ArrayList<>();
+public class DatabaseEenVeld {
+    //Voert een query uit, zet het meegegeven veld in een ArrayList, die wordt gereturnd
+    public static ArrayList<String> fetchData(String query, String veld) {
+        ArrayList<String> data = new ArrayList<>();
         Connection conn;
         try {
             //MySQL driver aanroepen
@@ -23,10 +21,7 @@ public class DatabaseArrayListHashMap {
                 ResultSet rs = st.executeQuery(query);
                 //Door de resultset heen loopen en toevoegen aan de ArrayList
                 while (rs.next()) {
-                    Map<String, String> tempMap = new LinkedHashMap<>();
-                    tempMap.put(rs.getString(veld1),rs.getString(veld2));
-                    data.add(new LinkedHashMap<>(tempMap));
-                    tempMap.clear();
+                    data.add(rs.getString(veld));
                 }
                 return data;
             } catch (SQLException ex) {

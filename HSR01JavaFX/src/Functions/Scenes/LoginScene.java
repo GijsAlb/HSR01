@@ -1,8 +1,7 @@
-package Applicatie;
+package Functions.Scenes;
 
 import Config.config;
-import Functions.DatabaseArrayListHashMap;
-import Functions.DatabaseTableView;
+import Functions.Database.DatabaseArrayListHashMap;
 import Functions.Hasher;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -15,8 +14,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -26,9 +23,9 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class SceneFunction {
+public class LoginScene {
 
-    public static Scene loginScene(Stage stage) {
+    public static Scene getScene(Stage stage) {
         GridPane grid = new GridPane();
 
         ArrayList<LinkedHashMap<String, String>> gebruikersnamenEnWachtwoorden;
@@ -89,7 +86,7 @@ public class SceneFunction {
             } else {
                 TMelding.setFill(Color.DARKGREEN);
                 TMelding.setText("Gebruikersnaam en \nwachtwoord zijn juist");
-                stage.setScene(SceneFunction.overzichtScene(stage));
+                stage.setScene(OverzichtScene.getScene(stage));
                 stage.setResizable(true);
                 stage.centerOnScreen();
 //                    stage.setFullScreen(true);
@@ -103,32 +100,5 @@ public class SceneFunction {
         loginScene.getStylesheets().add(config.CSS);
         loginScene.setRoot(grid);
         return loginScene;
-    }
-
-    public static Scene overzichtScene(Stage stage) {
-        TabPane tabPane = new TabPane();
-        
-        //Tabje met alle pakketten erop
-        Tab pakketTab = new Tab();
-        pakketTab.setText("Pakketten");
-        pakketTab.setContent(DatabaseTableView.fetchData("SELECT idpakket, barcode, locatie, lengte, breedte, hoogte, gewicht FROM pakket;"));
-        
-        //Tabje met alle backoffice accounts
-        Tab accountTab = new Tab();
-        accountTab.setText("Accounts");
-        accountTab.setContent(DatabaseTableView.fetchData("SELECT accountid, gebruikersnaam, wachtwoord_tijdelijk, wachtwoord FROM backoffice_account;"));
-        
-        //Tabs toevoegen aan de TabPane
-        tabPane.getTabs().addAll(pakketTab, accountTab);
-        //Tabjes kunnen niet meer gesloten worden
-        for(Tab tab : tabPane.getTabs()) {
-            tab.setClosable(false);
-        }
-        
-        Scene overzichtScene = new Scene(tabPane, 1280, 720);
-//        overzichtScene.getStylesheets().add("file:src/CSS/JMetroDarkTheme.css");
-        overzichtScene.getStylesheets().add(config.CSS);
-        overzichtScene.setRoot(tabPane);
-        return overzichtScene;
     }
 }
