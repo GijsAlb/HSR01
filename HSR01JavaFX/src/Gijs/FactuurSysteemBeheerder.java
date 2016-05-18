@@ -10,9 +10,14 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -81,15 +86,18 @@ public class FactuurSysteemBeheerder extends Application{
           }
       }
 
-
+ 
       @Override
       public void start(Stage stage) throws Exception {
         //TableView
-        tableview = new TableView();
-        buildData();
-
+        Image vergrootGlas = new Image(getClass().getResourceAsStream("vergrootglas.jpg"));
+        TextField zoekVeld = new TextField();
+        Button zoekKnop = new Button();
+        zoekKnop.setGraphic(new ImageView(vergrootGlas));
+        StackPane root = new StackPane();
+        root.getChildren().addAll(zoekVeld,zoekKnop);
         //Main Scene
-        Scene scene = new Scene(tableview);        
+        Scene scene = new Scene(root, 1200, 800);        
 
         stage.setScene(scene);
         stage.show();
