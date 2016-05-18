@@ -89,17 +89,6 @@ public class FactuurSysteemBeheerder extends Application{
  
       @Override
       public void start(Stage stage) throws Exception {
-        //TableView
-        Image vergrootGlas = new Image(getClass().getResourceAsStream("vergrootglas.jpg"));
-        TextField zoekVeld = new TextField();
-        Button zoekKnop = new Button();
-        zoekKnop.setGraphic(new ImageView(vergrootGlas));
-        StackPane root = new StackPane();
-        root.getChildren().addAll(zoekVeld,zoekKnop);
-        //Main Scene
-        Scene scene = new Scene(root, 1200, 800);        
-
-        stage.setScene(scene);
-        stage.show();
+ 
       }
 }
