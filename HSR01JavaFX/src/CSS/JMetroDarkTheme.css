@@ -6,6 +6,10 @@
         Dark Metro style sheet for use in JavaFX applications
 */
 
+.root {
+    -fx-background-color: #55c4fe;
+}
+
 .background{
     -fx-background-color: #1d1d1d;
 }

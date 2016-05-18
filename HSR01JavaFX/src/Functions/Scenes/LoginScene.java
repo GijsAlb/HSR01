@@ -96,8 +96,8 @@ public class LoginScene {
         });
 
         Scene loginScene = new Scene(grid, 400, 250);
-//        loginScene.getStylesheets().add("file:src/CSS/JMetroDarkTheme.css");
-        loginScene.getStylesheets().add(config.CSS);
+        loginScene.getStylesheets().add("file:src/CSS/JMetroDarkTheme.css");
+//        loginScene.getStylesheets().add(config.CSS);
         loginScene.setRoot(grid);
         return loginScene;
     }

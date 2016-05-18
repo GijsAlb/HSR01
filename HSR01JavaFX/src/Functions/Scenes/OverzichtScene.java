@@ -5,6 +5,7 @@ import Functions.Database.DatabaseTableView;
 import javafx.scene.Scene;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class OverzichtScene {
@@ -34,7 +35,9 @@ public class OverzichtScene {
         //Tabje met alle backoffice accounts
         Tab accountTab = new Tab();
         accountTab.setText("Accounts");
-        accountTab.setContent(DatabaseTableView.fetchData("SELECT accountid, gebruikersnaam, wachtwoord_tijdelijk, wachtwoord FROM backoffice_account;"));
+        StackPane stackpane = new StackPane();
+        stackpane.getChildren().add(DatabaseTableView.fetchData("SELECT accountid, gebruikersnaam, wachtwoord_tijdelijk, wachtwoord FROM backoffice_account;"));
+        accountTab.setContent(stackpane);
         
         //Tabs toevoegen aan de TabPane
         tabPane.getTabs().addAll(pakketTab, accountTab);
@@ -44,8 +47,8 @@ public class OverzichtScene {
         }
         
         Scene overzichtScene = new Scene(tabPane, 1280, 720);
-//        overzichtScene.getStylesheets().add("file:src/CSS/JMetroDarkTheme.css");
-        overzichtScene.getStylesheets().add(config.CSS);
+        overzichtScene.getStylesheets().add("file:src/CSS/JMetroDarkTheme.css");
+//        overzichtScene.getStylesheets().add(config.CSS);
         overzichtScene.setRoot(tabPane);
         return overzichtScene;
     }
