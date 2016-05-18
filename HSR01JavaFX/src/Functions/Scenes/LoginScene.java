@@ -61,7 +61,7 @@ public class LoginScene {
         HBMelding.setAlignment(Pos.CENTER_RIGHT);
         HBMelding.getChildren().add(TMelding);
         grid.add(HBMelding, 1, 6);
-
+        
         //Handling voor BInloggen
         BInloggen.setOnAction((ActionEvent e) -> {
             String checkGebruikersnaam, checkWachtwoord;
