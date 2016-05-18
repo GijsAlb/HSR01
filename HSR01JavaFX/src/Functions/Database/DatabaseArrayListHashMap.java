@@ -1,25 +1,18 @@
-package Classes;
+package Functions.Database;
 
 import java.sql.*;
 import Config.config;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class DatabaseConnection {
-    //Attributes
-    private String query;
-    
-    //Constructors
-    public DatabaseConnection() {
-        query = "SELECT * FROM pakket;";
-    }
-    
-    //Methods
-    public LinkedHashMap connect() {
-        //HashMap wordt gemaakt om uiteindelijk te returnen
-        LinkedHashMap<Integer, LinkedHashMap<String, String>> dbInfoHashMap = new LinkedHashMap<>();
+public class DatabaseArrayListHashMap {
+    //Voert een query uit, zet de twee meegegeven velden in een LinkedHashMap en zet deze LinkedHashMaps vervolgens in een overkoepelende ArrayList, die wordt gereturnd
+    public static ArrayList<LinkedHashMap<String, String>> fetchData(String query, String veld1, String veld2) {
+        ArrayList<LinkedHashMap<String, String>> data = new ArrayList<>();
         Connection conn;
         try {
+            //MySQL driver aanroepen
             Class.forName(config.DRIVER).newInstance();
             //Connectie wordt gemaakt
             conn = DriverManager.getConnection(config.URL, config.USERNAME, config.PASSWORD);
@@ -28,21 +21,14 @@ public class DatabaseConnection {
                 Statement st = conn.createStatement();
                 //Query wordt uitgevoerd en in een ResultSet gezet
                 ResultSet rs = st.executeQuery(query);
-                //Int om de data in de Hashmaps te nummeren
-                Integer i = 0;
-                //Door de resultset heen loopen
+                //Door de resultset heen loopen en toevoegen aan de ArrayList
                 while (rs.next()) {
                     Map<String, String> tempMap = new LinkedHashMap<>();
-                    tempMap.put("idpakket", rs.getString("idpakket"));
-                    tempMap.put("lengte", rs.getString("lengte"));
-                    tempMap.put("breedte", rs.getString("breedte"));
-                    tempMap.put("hoogte", rs.getString("hoogte"));
-                    tempMap.put("gewicht", rs.getString("gewicht"));
-                    dbInfoHashMap.put(i, new LinkedHashMap<>(tempMap));
+                    tempMap.put(rs.getString(veld1),rs.getString(veld2));
+                    data.add(new LinkedHashMap<>(tempMap));
                     tempMap.clear();
-                    i++;
                 }
-                return dbInfoHashMap;
+                return data;
             } catch (SQLException ex) {
                 System.err.println(ex.getMessage());
             }

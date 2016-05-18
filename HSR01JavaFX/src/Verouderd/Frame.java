@@ -1,33 +1,44 @@
-package Test;
+package Verouderd;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.swing.*;
 
-public class FrameTest extends JFrame {
+public class Frame extends JFrame {
     //Attributes
-    private DatabaseConnectionTest dbc;
+    private DatabaseConnection dbc;
     private LinkedHashMap<Integer, LinkedHashMap<String, String>> dbHashMap;
     private JLabel[][] jlabels;
+    private String[] labels;
     
     //Constructors
-    public FrameTest(DatabaseConnectionTest d) {
+    public Frame(DatabaseConnection d) {
         setTitle("Pakkettenmonitor");
         setSize(1280, 720);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new GridLayout(10,2));
         
+        int rows = 7;
         dbc = d;
         dbHashMap = dbc.connect();
-        jlabels = new JLabel[dbHashMap.size()][5];
+        setLayout(new GridLayout(rows * 2,dbHashMap.size()));
+        jlabels = new JLabel[dbHashMap.size()][rows];
+        labels = new String[rows];
+        
+        labels[0] = "Pakket id:";
+        labels[1] = "Barcode:";
+        labels[2] = "Locatie:";
+        labels[3] = "Lengte:";
+        labels[4] = "Breedte:";
+        labels[5] = "Hoogte:";
+        labels[6] = "Gewicht:";
+        
         hashMapToJLabels(dbHashMap);
         for(int a = 0; a < jlabels.length; a++) {
             for(int b = 0; b < jlabels[a].length; b++) {
-                add(new JLabel("label"));
+                add(new JLabel(labels[b]));
                 add(jlabels[a][b]);
             }
         }
@@ -36,11 +47,11 @@ public class FrameTest extends JFrame {
     }
     
     //Methods
-    public void hashMapToJLabels(HashMap h) {
+    public void hashMapToJLabels(LinkedHashMap<Integer, LinkedHashMap<String, String>> h) {
         Iterator it1 = dbHashMap.entrySet().iterator();
         while (it1.hasNext()) {
             Map.Entry pair1 = (Map.Entry)it1.next();
-            HashMap tempHashMap = (HashMap) pair1.getValue();
+            LinkedHashMap<String, String> tempHashMap = (LinkedHashMap<String, String>) pair1.getValue();
             Iterator it2 = tempHashMap.entrySet().iterator();
             int i = 0;
             while (it2.hasNext()) {
