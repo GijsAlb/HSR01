@@ -26,7 +26,7 @@ import javafx.util.Callback;
  *
  * @author Gijs
  */
-public class zoekScene {
+public class ZoekFunctie {
 
     private Image zoekIcon;
     private TextField zoekVeld;
@@ -38,7 +38,7 @@ public class zoekScene {
     private ObservableList data = FXCollections.observableArrayList();
  
 
-    public zoekScene(String query) {
+    public ZoekFunctie(String query) {
         zoekIcon = new Image(getClass().getResourceAsStream("vergrootglas.jpg"));
 
         zoekVeld = new TextField();

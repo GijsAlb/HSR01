@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -46,6 +47,7 @@ public class LoginScene {
         Label LWachtwoord = new Label("Wachtwoord:");
         PasswordField PFWachtwoord = new PasswordField();
         Button BInloggen = new Button("Inloggen");
+        Button BAfsluiten = new Button("Afsluiten");
         final Text TMelding = new Text();
 
         //Nodes toevoegen aan de GridPane
@@ -56,7 +58,13 @@ public class LoginScene {
         HBox HBInloggen = new HBox(10);
         HBInloggen.setAlignment(Pos.BOTTOM_RIGHT);
         HBInloggen.getChildren().add(BInloggen);
+        BInloggen.setDefaultButton(true);
         grid.add(HBInloggen, 1, 4);
+        HBox HBAfsluiten = new HBox(10);
+        HBAfsluiten.setAlignment(Pos.BOTTOM_LEFT);
+        HBAfsluiten.getChildren().add(BAfsluiten);
+        BAfsluiten.setCancelButton(true);
+        grid.add(HBAfsluiten, 0, 4);
         HBox HBMelding = new HBox(10);
         HBMelding.setAlignment(Pos.CENTER_RIGHT);
         HBMelding.getChildren().add(TMelding);
@@ -73,7 +81,7 @@ public class LoginScene {
                 Iterator it = lhm.entrySet().iterator();
                 while (it.hasNext() && doorgaan) {
                     Map.Entry pair = (Map.Entry) it.next();
-                    System.out.println(pair.getKey() + " " + pair.getValue());
+//                    System.out.println(pair.getKey() + " " + pair.getValue());
                     if (checkGebruikersnaam.equals(pair.getKey()) && checkWachtwoord.equals(pair.getValue())) {
                         doorgaan = false;
                         break forloop;
@@ -94,10 +102,12 @@ public class LoginScene {
             TFGebruikersnaam.setText("");
             PFWachtwoord.setText("");
         });
+        BAfsluiten.setOnAction((ActionEvent e) -> {
+            Platform.exit();
+        });
 
         Scene loginScene = new Scene(grid, 400, 250);
-        loginScene.getStylesheets().add("file:src/CSS/JMetroDarkTheme.css");
-//        loginScene.getStylesheets().add(config.CSS);
+        loginScene.getStylesheets().add(config.CSS);
         loginScene.setRoot(grid);
         return loginScene;
     }

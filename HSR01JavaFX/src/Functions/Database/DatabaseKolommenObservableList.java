@@ -1,10 +1,11 @@
-package Gijs;
+package Functions.Database;
 
 import Config.config;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
@@ -13,9 +14,9 @@ import javafx.collections.ObservableList;
  */
 public class DatabaseKolommenObservableList {
    
-    public static ObservableList fetchData(String query) {
+    public static ObservableList<String> fetchData(String query) {
        Connection conn;
-       ObservableList lijst = null ;
+       ObservableList<String> lijst = FXCollections.observableArrayList();
         try {
             //MySQL driver aanroepen  
             Class.forName(config.DRIVER).newInstance();
@@ -28,7 +29,7 @@ public class DatabaseKolommenObservableList {
         
             // The column count starts from 1
             for (int i = 1; i <= columnCount; i++) {
-                lijst.addAll(rsmd.getColumnName(i));
+                lijst.add(rsmd.getColumnLabel(i));
             }
             return lijst;
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException ex) {
