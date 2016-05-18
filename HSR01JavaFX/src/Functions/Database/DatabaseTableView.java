@@ -30,6 +30,8 @@ public class DatabaseTableView {
             for (int i = 0; i < rs.getMetaData().getColumnCount(); i++) {
                 final int j = i;
                 TableColumn col = new TableColumn(rs.getMetaData().getColumnLabel(i + 1));
+                col.setSortable(false);
+                
                 //Geeft juiste waarde uit de database aan de tabelkolom
                 col.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ObservableList, String>, ObservableValue<String>>() {
                     @Override
