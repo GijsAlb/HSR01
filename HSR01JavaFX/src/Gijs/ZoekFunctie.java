@@ -51,7 +51,7 @@ public class ZoekFunctie {
         zoekKnop.setGraphic(new ImageView(zoekIcon));
         
         zoekKnop.setOnAction((ActionEvent e) -> {
-            String zoekopdr = zoekVeld.getText();
+            String zoekopdr = "" + zoekVeld.getText();
             String kolom = cat.getSelectionModel().getSelectedItem().toString();
             
             try {

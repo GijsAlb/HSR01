@@ -6,7 +6,6 @@ import Functions.Database.DatabaseTableView;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javafx.geometry.NodeOrientation;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -14,7 +13,6 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToolBar;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
@@ -37,6 +35,7 @@ public class OverzichtScene {
         
         //Buttons, TextFields en ComboBoxes worden gemaakt voor in de ToolBar
         Button pakketToevoegen = new Button();
+        Button pakketVerwijderen = new Button();
         Button pakketHerladen = new Button();
         Button pakketZoeken = new Button();
         ComboBox pakketZoekenCategorie = new ComboBox(DatabaseKolommenObservableList.fetchData(config.PAKKETKOLOMMENQUERY));
@@ -47,6 +46,8 @@ public class OverzichtScene {
         //Icoontjes worden toegevoegd aan de Buttons
         ImageView icoonToevoegen = new ImageView("file:src/Images/AddIconWhite24.png");
         pakketToevoegen.setGraphic(icoonToevoegen);
+        ImageView icoonVerwijderen = new ImageView("file:src/Images/DeleteIconWhite24.png");
+        pakketVerwijderen.setGraphic(icoonVerwijderen);
         ImageView icoonHerladen = new ImageView("file:src/Images/RefreshIconWhite24.png");
         pakketHerladen.setGraphic(icoonHerladen);
         ImageView icoonZoeken = new ImageView("file:src/Images/SearchIconWhite24.png");
@@ -74,7 +75,7 @@ public class OverzichtScene {
         Tab accountTab = new Tab();
         accountTab.setText("Accounts");
         StackPane stackpane = new StackPane();
-        stackpane.getChildren().add(DatabaseTableView.fetchData("SELECT accountid, gebruikersnaam, wachtwoord_tijdelijk, wachtwoord FROM backoffice_account;"));
+        stackpane.getChildren().add(DatabaseTableView.fetchData("SELECT gebruikersnaam, wachtwoord FROM backoffice_account;"));
         accountTab.setContent(stackpane);
         
         //Tabs toevoegen aan de TabPane
@@ -92,7 +93,7 @@ public class OverzichtScene {
         Scene overzichtScene = new Scene(tabPane, width, height);
         System.out.println(overzichtScene.getWidth());
         System.out.println(overzichtScene.getHeight());
-        overzichtScene.getStylesheets().add(config.CSS);
+        overzichtScene.getStylesheets().add("file:src/CSS/JMetroLightTheme.css");
         overzichtScene.setRoot(tabPane);
         
         return overzichtScene;

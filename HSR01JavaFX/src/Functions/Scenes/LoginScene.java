@@ -58,12 +58,12 @@ public class LoginScene {
         HBox HBInloggen = new HBox(10);
         HBInloggen.setAlignment(Pos.BOTTOM_RIGHT);
         HBInloggen.getChildren().add(BInloggen);
-        BInloggen.setDefaultButton(true);
+//        BInloggen.setDefaultButton(true);
         grid.add(HBInloggen, 1, 4);
         HBox HBAfsluiten = new HBox(10);
         HBAfsluiten.setAlignment(Pos.BOTTOM_LEFT);
         HBAfsluiten.getChildren().add(BAfsluiten);
-        BAfsluiten.setCancelButton(true);
+//        BAfsluiten.setCancelButton(true);
         grid.add(HBAfsluiten, 0, 4);
         HBox HBMelding = new HBox(10);
         HBMelding.setAlignment(Pos.CENTER_RIGHT);
@@ -107,7 +107,7 @@ public class LoginScene {
         });
 
         Scene loginScene = new Scene(grid, 400, 250);
-        loginScene.getStylesheets().add(config.CSS);
+        loginScene.getStylesheets().add("file:src/CSS/JMetroLightTheme.css");
         loginScene.setRoot(grid);
         return loginScene;
     }

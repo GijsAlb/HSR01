@@ -32,7 +32,7 @@ public class config {
                                             + "gewicht AS Gewicht "
                                             + "FROM pakket;";
     
-    public static final String CSS = "file:src/CSS/JMetroDarkTheme.css";
-//    public static final String CSS = "file:src/CSS/JMetroLightTheme.css";
+//    public static final String CSS = "file:src/CSS/JMetroDarkTheme.css";
+    public static final String CSS = "file:src/CSS/JMetroLightTheme.css";
 //    public static final String CSS = "file:src/CSS/stylesheet.css";
 }
