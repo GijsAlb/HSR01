@@ -1,8 +1,9 @@
-package Functions.Scenes;
+package Applicatie;
 
-import Config.config;
 import Functions.Database.DatabaseArrayListHashMap;
 import Functions.Hasher;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -15,6 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -24,22 +26,26 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class LoginScene {
+public class LoginScene extends Scene {
 
-    public static Scene getScene(Stage stage) {
-        GridPane grid = new GridPane();
+    //Attributes
 
-        ArrayList<LinkedHashMap<String, String>> gebruikersnamenEnWachtwoorden;
+    private ArrayList<LinkedHashMap<String, String>> gebruikersnamenEnWachtwoorden;
+
+    //Constructors
+    public LoginScene(Stage stage, GridPane root, double width, double height) {
+        super(root, width, height);
+
         gebruikersnamenEnWachtwoorden = new ArrayList<>(DatabaseArrayListHashMap.fetchData("SELECT gebruikersnaam, wachtwoord FROM backoffice_account;", "gebruikersnaam", "wachtwoord"));
 
-        grid.setAlignment(Pos.TOP_CENTER);
-        grid.setHgap(10);
-        grid.setVgap(10);
-        grid.setPadding(new Insets(25, 25, 25, 25));
+        root.setAlignment(Pos.TOP_CENTER);
+        root.setHgap(10);
+        root.setVgap(10);
+        root.setPadding(new Insets(25, 25, 25, 25));
 
         Text scenetitel = new Text("Welkom!");
         scenetitel.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
-        grid.add(scenetitel, 0, 0, 2, 1);
+        root.add(scenetitel, 0, 0, 2, 1);
 
         //Nodes aanmaken
         Label LGebruikersnaam = new Label("Gebruikersnaam:");
@@ -51,26 +57,26 @@ public class LoginScene {
         final Text TMelding = new Text();
 
         //Nodes toevoegen aan de GridPane
-        grid.add(LGebruikersnaam, 0, 1);
-        grid.add(TFGebruikersnaam, 1, 1);
-        grid.add(LWachtwoord, 0, 2);
-        grid.add(PFWachtwoord, 1, 2);
+        root.add(LGebruikersnaam, 0, 1);
+        root.add(TFGebruikersnaam, 1, 1);
+        root.add(LWachtwoord, 0, 2);
+        root.add(PFWachtwoord, 1, 2);
         HBox HBInloggen = new HBox(10);
         HBInloggen.setAlignment(Pos.BOTTOM_RIGHT);
         HBInloggen.getChildren().add(BInloggen);
-//        BInloggen.setDefaultButton(true);
-        grid.add(HBInloggen, 1, 4);
+        BInloggen.setDefaultButton(true);
+        root.add(HBInloggen, 1, 4);
         HBox HBAfsluiten = new HBox(10);
         HBAfsluiten.setAlignment(Pos.BOTTOM_LEFT);
         HBAfsluiten.getChildren().add(BAfsluiten);
-//        BAfsluiten.setCancelButton(true);
-        grid.add(HBAfsluiten, 0, 4);
+        BAfsluiten.setCancelButton(true);
+        root.add(HBAfsluiten, 0, 4);
         HBox HBMelding = new HBox(10);
         HBMelding.setAlignment(Pos.CENTER_RIGHT);
         HBMelding.getChildren().add(TMelding);
-        grid.add(HBMelding, 1, 6);
-        
-        //Handling voor BInloggen
+        root.add(HBMelding, 1, 6);
+
+        //Handling voor inlogknop
         BInloggen.setOnAction((ActionEvent e) -> {
             String checkGebruikersnaam, checkWachtwoord;
             checkGebruikersnaam = TFGebruikersnaam.getText();
@@ -94,7 +100,12 @@ public class LoginScene {
             } else {
                 TMelding.setFill(Color.DARKGREEN);
                 TMelding.setText("Gebruikersnaam en \nwachtwoord zijn juist");
-                stage.setScene(OverzichtScene.getScene(stage));
+                //Haalt resolutie op, en zet width en height om naar 67% (ongeveer 1080x720 bij een resolutie van 1920x1080) zodat het scherm op andere resoluties niet te groot wordt
+                Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+                double breedte = screenSize.getWidth() * 0.66667;
+                double hoogte = screenSize.getHeight() * 0.66667;
+                TabPane overzichtTabPane = new TabPane();
+                stage.setScene(new OverzichtScene(stage, overzichtTabPane, breedte, hoogte));
                 stage.setResizable(true);
                 stage.centerOnScreen();
 //                    stage.setFullScreen(true);
@@ -102,13 +113,13 @@ public class LoginScene {
             TFGebruikersnaam.setText("");
             PFWachtwoord.setText("");
         });
+        
+        //Handling voor afsluitknop
         BAfsluiten.setOnAction((ActionEvent e) -> {
             Platform.exit();
         });
 
-        Scene loginScene = new Scene(grid, 400, 250);
-        loginScene.getStylesheets().add("file:src/CSS/JMetroLightTheme.css");
-        loginScene.setRoot(grid);
-        return loginScene;
+        getStylesheets().add("file:src/CSS/JMetroLightTheme.css");
     }
+
 }
