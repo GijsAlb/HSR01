@@ -6,17 +6,29 @@
         Light Metro style sheet for use in JavaFX applications
 */
 
-.background{
+.root {
     -fx-background-color: white;
 }
 
-.header{
+#zoeken-text-field {
+    -fx-font-size: 15.5px;
+}
+
+#zoeken-combo-box {
+    -fx-font-size: 13px;
+}
+
+.background {
+    -fx-background-color: white;
+}
+
+.header {
     -fx-font-size: 42pt;
     -fx-font-family: "Segoe UI Light";
     -fx-text-fill: black;
 }
 
-.item-title{
+.item-title {
     -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Semibold";
     -fx-text-fill: black;

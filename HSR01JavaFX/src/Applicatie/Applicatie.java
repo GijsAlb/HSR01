@@ -9,7 +9,7 @@ public class Applicatie extends Application {
 
     @Override
     public void start(Stage stage) {
-        stage.setTitle("Pakketmonitor");
+        stage.setTitle("TZT Monitor");
         stage.getIcons().add(new Image("file:src/Images/appIconLocomotief.png"));
         
         GridPane inlogGrid = new GridPane();
