@@ -28,7 +28,7 @@ function randStrGen($len) {
         if (isset($_POST['verstuur'])) {
             //set variable voor de rest
             $invoeremail = htmlentities($_POST['email']);
-
+             $van = "TZT@gmail.com";
 //query voor het zoeken of het mailadres in de database staat
             $pdo = new PDO("mysql:host=localhost;dbname=micheic28_tztdb;port=3307", "root", "usbw");
             $queryemail = $pdo->prepare("SELECT * FROM treinkoerier WHERE email=?");
@@ -40,9 +40,18 @@ function randStrGen($len) {
 
 //maak een random string
             } else {
+                
+                
                 $wachtwoord = randStrGen(10);
                 $sha512wachtwoord = hash('sha512', $wachtwoord);
-
+                try{ 
+                $querynaam = $pdo->prepare("SELECT voornaam FROM treinkoerier WHERE email=?");
+                $querynaam->execute(array($invoeremail));
+                $naam = $querynaam->fetch();
+                } catch (PDOException $e) {
+                    print("Database is offline");
+                }
+                
 //mail maken en versturen
                 $naar = $invoeremail;
                 $onderwerp = "Wachtwoord opnieuw aanvragen HSR-TZT.ga";
@@ -54,14 +63,14 @@ function randStrGen($len) {
                    </title>
                    <body>
                         <p>
-                        Beste gebruiker,<br><br> Er is een nieuw wachtwoord aangevraagd voor uw gebruikersnaam.<br>Uw nieuwe tijdelijke wachtwoord is: " . $wachtwoord . "<br>U kunt met dit wachtwoord inloggen en via uw profiel uw wachtwoord aanpassen naar een nieuw wachtwoord.<br>
+                        Beste " . $naam[0] . " ,<br><br> Er is een nieuw wachtwoord aangevraagd voor uw gebruikersnaam.<br>Uw nieuwe tijdelijke wachtwoord is: " . $wachtwoord . "<br>U kunt met dit wachtwoord inloggen en via uw profiel uw wachtwoord aanpassen naar een nieuw wachtwoord.<br>
                         </p>
                    </body>
                    </html>
                    ";
                 $headers = "MIME-Version: 1.0" . "\r\n";
                 $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-                $headers .= 'From: <webmail@HSR-TZT.nl>' . "\r\n";
+                $headers .= 'From: ' . $van . ' ' . "\r\n";
 
                 mail($naar, $onderwerp, $verhaal, $headers);
 

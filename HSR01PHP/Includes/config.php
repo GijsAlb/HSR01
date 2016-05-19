@@ -14,12 +14,12 @@
   } */
 
 
-$hostname = 'localhost';
-$username = 'root';
-$password = 'usbw';
+$hostname = '';
+$username = 'micheic28_tzt';
+$password = 'tztuserkek420';
 
 try {
-    $str = "mysql:host=localhost;dbname=micheic28_tztdb; port=3307";
+    $str = "mysql:host=michelvaartjes.nl;dbname=micheic28_tztdb; port=3307";
     $db = new PDO($str, $username, $password);
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {

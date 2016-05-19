@@ -1,6 +1,9 @@
 {
     "elements": {},
     "attributes": {
+        "600px\"": {
+            "context": "textarea"
+        },
         "placeholder": {
             "context": "input"
         }

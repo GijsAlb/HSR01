@@ -5,7 +5,7 @@ td{
 </style>
 <?php
 
-include "config.php";
+include "Includes/config.php";
 
 function checkReisplan($db, $beginstation, $eindstation){
 	try{

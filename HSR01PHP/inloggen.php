@@ -15,7 +15,7 @@
         $wachtwoordinput = htmlentities($_POST["wachtwoord"]);
         $wachtwoord = hash("sha512", $wachtwoordinput);
 
-        $stmt = $db->prepare("SELECT idtreinkoerier, wachtwoord FROM treinkoerier WHERE email=?");
+        $stmt = $pdo->prepare("SELECT idtreinkoerier, wachtwoord FROM treinkoerier WHERE email=?");
         $stmt->execute(array($email));
         $wachtwoorddb = $stmt->fetch();
 
