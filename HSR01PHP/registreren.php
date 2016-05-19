@@ -49,6 +49,14 @@
         //postcode aan elkaar
         $postcode = str_replace(" ", "", $postcodeinput);
         //wachtwoorden overeenkomen
+        if (ctype_alnum($_POST["wachtwoord"])) {
+            print("Je wachtwoord moet minimaal 1 symbool bevatten.");
+            $fout = true;
+        }
+        if (strlen($_POST["wachtwoord"]) < 6) {
+            print("Je wachtwoord moet minimaal 6 karakters zijn");
+            $fout = true;
+        }
         if ($wachtwoord != $wachtwoordbevestig) {
             print("Wachtwoorden komen niet overeen.");
             $fout = true;

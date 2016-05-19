@@ -17,7 +17,7 @@ $foutbegin = "";
 $fouteind = "";
 $foutnietzosnugger = false;
 $foutdatum = "";
-$foutvasttraject= FALSE;
+$foutvasttraject = FALSE;
 
 try {
     $stmt = $db->prepare("SELECT COUNT(*) FROM reisplan WHERE treinreiziger_idtreinreiziger = ? AND tijdelijk = 0");
@@ -26,12 +26,12 @@ try {
 } catch (PDOException $e) {
     print("Er is iets misgegaan, probeer het later opnieuw");
 }
-//kan weg(evt wijzigen traject formulier)
-if ($dbvasttraject[0] != 0) {
-    
-    print("U heeft al een vast traject, wilt u uw vaste traject wijzigen? klik dan <a href='wijzigenreisplan.php'>hier</a>"); 
-     $foutvasttraject = TRUE;
-}
+////kan weg(evt wijzigen traject formulier)
+//if ($dbvasttraject[0] != 0) {
+//
+//    print("U heeft al een vast traject, wilt u uw vaste traject wijzigen? klik dan <a href='wijzigenreisplan.php'>hier</a>");
+//     $foutvasttraject = TRUE;
+//}
 
 if (isset($_POST["knop"])) {
     $url = "http://webservices.ns.nl/ns-api-stations-v2";
@@ -96,13 +96,13 @@ if (isset($_POST["knop"])) {
             $fouteind = "Eindstation niet gevonden!";
             $fout = true;
         }
-        if ($foutvasttraject == true) { 
-            print ("<h2> U heeft al een vast traject, u kunt uw vaste traject alleen wijzigen. </h2>");
-            $fout = TRUE;
-            
-        } 
-        
-        if ($beginbool == true && $eindbool == true && $fout == false ) {
+//        if ($foutvasttraject == true) {
+//            print ("<h2> U heeft al een vast traject, u kunt uw vaste traject alleen wijzigen. </h2>");
+//            $fout = TRUE;
+//
+//        }
+
+        if ($beginbool == true && $eindbool == true && $fout == false) {
             try {
                 print("<h1> Reisplan succesvol doorgegeven! </h1>");
                 $stmt = $db->prepare("INSERT INTO reisplan(beginstation,eindstation,tijdelijk,datum,treinreiziger_idtreinreiziger)VALUES(?,?,?,?,?)");
