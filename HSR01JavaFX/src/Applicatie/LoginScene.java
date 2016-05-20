@@ -29,7 +29,6 @@ import javafx.stage.Stage;
 public class LoginScene extends Scene {
 
     //Attributes
-
     private ArrayList<LinkedHashMap<String, String>> gebruikersnamenEnWachtwoorden;
 
     //Constructors

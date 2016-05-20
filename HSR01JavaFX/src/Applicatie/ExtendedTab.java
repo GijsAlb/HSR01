@@ -91,7 +91,7 @@ public class ExtendedTab extends Tab {
         tabel.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
             @Override
             public void changed(ObservableValue observableValue, Object oldValue, Object newValue) {
-                //Check whether item is selected and set value of selected item to Label
+                //Kijkt welke rij is geselecteerd en haalt hier de 1e kolom (in principe de primary key) uit en slaat deze op in het attribuut selectieId
                 if (tabel.getSelectionModel().getSelectedItem() != null) {
                     ObservableList itemslist = tabel.getSelectionModel().getSelectedItems();
                     for(Object rij : itemslist) {
