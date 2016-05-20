@@ -16,12 +16,17 @@ public class config {
                                                         + "p.hoogte, "
                                                         + "p.gewicht, "
                                                         + "a.idafzender, "
-                                                        + "o.idontvanger "
+                                                        + "a.afzender_voornaam, "
+                                                        + "a.afzender_achternaam, "
+                                                        + "o.idontvanger, "
+                                                        + "o.ontvanger_voornaam, "
+                                                        + "o.ontvanger_achternaam "
                                                    + "FROM pakket p "
                                                    + "JOIN afzender a "
                                                         + "ON a.idafzender = p.afzender_idafzender "
                                                    + "JOIN ontvanger o "
                                                         + "ON o.idontvanger = p.ontvanger_idontvanger;";
+    
     public static final String PAKKETQUERY = "SELECT "
                                                 + "p.idpakket, "
                                                 + "p.barcode, "

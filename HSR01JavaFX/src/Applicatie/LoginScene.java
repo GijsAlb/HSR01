@@ -86,7 +86,6 @@ public class LoginScene extends Scene {
                 Iterator it = lhm.entrySet().iterator();
                 while (it.hasNext() && doorgaan) {
                     Map.Entry pair = (Map.Entry) it.next();
-//                    System.out.println(pair.getKey() + " " + pair.getValue());
                     if (checkGebruikersnaam.equals(pair.getKey()) && checkWachtwoord.equals(pair.getValue())) {
                         doorgaan = false;
                         break forloop;

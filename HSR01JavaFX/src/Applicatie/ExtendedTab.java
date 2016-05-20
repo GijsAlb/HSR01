@@ -27,6 +27,7 @@ public class ExtendedTab extends Tab {
 
     //Attributes
     private String selectieId;
+    private String selectieQuery;
     private TableView tabel;
 
     //Constructors
@@ -49,6 +50,7 @@ public class ExtendedTab extends Tab {
         ComboBox CBZoeken = new ComboBox(DatabaseKolommenObservableList.fetchData(kolommenquery));
         CBZoeken.setId("zoeken-combo-box");
         CBZoeken.setPromptText("Categorie");
+        CBZoeken.setPrefWidth(200);
         TextField TFZoeken = new TextField();
         TFZoeken.setId("zoeken-text-field");
         TFZoeken.setPromptText("Zoeken");
@@ -78,6 +80,7 @@ public class ExtendedTab extends Tab {
 
         //Zet de pakkettentabel in een StackPane en zet die in het midden van de BorderPane
         tabel = DatabaseTableView.fetchData(query);
+        selectieQuery = query;
         StackPane pakketStackPane = new StackPane();
         pakketStackPane.getChildren().add(tabel);
         borderPane.setCenter(pakketStackPane);
@@ -87,7 +90,7 @@ public class ExtendedTab extends Tab {
         BVerwijderen.setOnAction((ActionEvent event) -> {
             int index = tabel.getSelectionModel().getSelectedIndex();
             DatabaseVerwijder.verwijder(deleteQuery, selectieId);
-            tabel.setItems(DatabaseObservableList.fetchData(query));
+            tabel.setItems(DatabaseObservableList.fetchData(selectieQuery));
             tabel.getSelectionModel().select(index);
         });
         BHerladen.setOnAction((ActionEvent event) -> {
@@ -99,6 +102,7 @@ public class ExtendedTab extends Tab {
                 String zoekopdracht = "" + TFZoeken.getText();
                 String zoekQuery = QueryParser.setCategorieZoekopdracht(query, categorie, zoekopdracht);
                 tabel.setItems(DatabaseObservableList.fetchData(zoekQuery));
+                selectieQuery = zoekQuery;
             }
         });
 
@@ -125,12 +129,6 @@ public class ExtendedTab extends Tab {
             @Override
             public void keyPressed(KeyEvent e) {
                 int keyCode = e.getKeyCode();
-                char keyChar = e.getKeyChar();
-                int keyCodeExtended = e.getExtendedKeyCode();
-
-                System.out.println(keyCode);
-                System.out.println(keyChar);
-                System.out.println(keyCodeExtended);
 
                 if (keyCode == KeyEvent.VK_ENTER) {
                     if (!CBZoeken.getSelectionModel().isEmpty() && !(TFZoeken.getText().trim().isEmpty())) {
@@ -139,6 +137,10 @@ public class ExtendedTab extends Tab {
                         String zoekQuery = QueryParser.setCategorieZoekopdracht(query, categorie, zoekopdracht);
                         tabel.setItems(DatabaseObservableList.fetchData(zoekQuery));
                     }
+                }
+                
+                if (keyCode == KeyEvent.VK_0) {
+                    
                 }
             }
 
