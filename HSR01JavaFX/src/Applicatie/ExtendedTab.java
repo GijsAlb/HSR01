@@ -5,11 +5,13 @@ import Functions.Database.DatabaseObservableList;
 import Functions.Database.DatabaseTableView;
 import Functions.Database.DatabaseVerwijder;
 import Functions.QueryParser;
+import static com.sun.java.accessibility.util.AWTEventMonitor.addKeyListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.NodeOrientation;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -114,5 +116,30 @@ public class ExtendedTab extends Tab {
         });
 
         setClosable(false);
+
+        addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                int key = e.getKeyCode();
+                if (key == KeyEvent.VK_ENTER) {
+                    if (!CBZoeken.getSelectionModel().isEmpty()) {
+                        String categorie = CBZoeken.getSelectionModel().getSelectedItem().toString();
+                        String zoekopdracht = "" + TFZoeken.getText();
+                        String zoekQuery = QueryParser.setCategorieZoekopdracht(query, categorie, zoekopdracht);
+                        tabel.setItems(DatabaseObservableList.fetchData(zoekQuery));
+                    }
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+        });
     }
 }
