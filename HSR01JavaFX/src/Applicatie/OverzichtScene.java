@@ -28,7 +28,8 @@ public class OverzichtScene extends Scene {
     //Attributes
     private String selectiePakketId;
     private TableView pakketTabel;
-
+    
+    //Constructors
     public OverzichtScene(Stage stage, TabPane root, double width, double height) {
         super(root, width, height);
 
@@ -48,7 +49,6 @@ public class OverzichtScene extends Scene {
         Button pakketVerwijderen = new Button();
         Button pakketHerladen = new Button();
         Button pakketZoeken = new Button();
-        Double comboBoxTextFieldHeight = 35.0;
         ComboBox pakketZoekenCategorie = new ComboBox(DatabaseKolommenObservableList.fetchData(config.PAKKETKOLOMMENQUERY));
         pakketZoekenCategorie.setId("zoeken-combo-box");
         pakketZoekenCategorie.setPromptText("Categorie");
@@ -112,17 +112,8 @@ public class OverzichtScene extends Scene {
             }
         });
 
-        //Tabje met alle backoffice accounts
-        Tab accountTab = new Tab();
-        accountTab.setText("Accounts");
-        StackPane stackpane = new StackPane();
-        TableView accountTabel = DatabaseTableView.fetchData("SELECT gebruikersnaam, wachtwoord FROM backoffice_account;");
-
-        stackpane.getChildren().add(accountTabel);
-        accountTab.setContent(stackpane);
-
         //Tabs toevoegen aan de TabPane
-        root.getTabs().addAll(pakketTab, accountTab);
+        root.getTabs().addAll(pakketTab);
 
         //Tabs kunnen niet meer gesloten worden
         for (Tab tab : root.getTabs()) {
