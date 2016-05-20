@@ -9,7 +9,7 @@ public class OverzichtScene extends Scene {
     //Constructors
     public OverzichtScene(Stage stage, TabPane root, double width, double height) {
         super(root, width, height);
-
+        
         //Tabje met overzicht pakketten
         ExtendedTab pakketTab = new ExtendedTab("Pakketten", config.PAKKETQUERY, config.PAKKETKOLOMMENQUERY, config.PAKKETDELETE);
         

@@ -8,7 +8,6 @@ import Functions.QueryParser;
 import static com.sun.java.accessibility.util.AWTEventMonitor.addKeyListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -136,11 +135,8 @@ public class ExtendedTab extends Tab {
                         String zoekopdracht = "" + TFZoeken.getText();
                         String zoekQuery = QueryParser.setCategorieZoekopdracht(query, categorie, zoekopdracht);
                         tabel.setItems(DatabaseObservableList.fetchData(zoekQuery));
+                        selectieQuery = zoekQuery;
                     }
-                }
-                
-                if (keyCode == KeyEvent.VK_0) {
-                    
                 }
             }
 
@@ -148,5 +144,6 @@ public class ExtendedTab extends Tab {
             public void keyReleased(KeyEvent e) {
             }
         });
+
     }
 }

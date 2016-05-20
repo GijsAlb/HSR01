@@ -18,9 +18,28 @@ public class QueryParser {
         sb.append(query.substring(0, endIndex));
         sb.append(" AND ");
         sb.append(categorie);
-        sb.append(" LIKE '%");
-        sb.append(zoekopdracht);
-        sb.append("%' ");
+        sb.append(" LIKE ");
+        
+//        try {
+//            Integer.parseInt(zoekopdracht);
+//            sb.append(zoekopdracht);
+//        } catch (NumberFormatException e) {
+//            sb.append("'%");
+//            sb.append(zoekopdracht);
+//            sb.append("%'");
+//        }
+        
+        if(IntegerChecker.isInteger(zoekopdracht)) {
+            sb.append(zoekopdracht);
+            System.out.println("Zoekopdracht is een integer");
+        } else {
+            sb.append("'%");
+            sb.append(zoekopdracht);
+            sb.append("%'");
+            System.out.println("Zoekopdracht is niet een integer");
+        }
+        
+        sb.append(" ");
         sb.append(query.substring(endIndex));
 
         System.out.println(sb.toString());
