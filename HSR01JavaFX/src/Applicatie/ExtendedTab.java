@@ -94,7 +94,7 @@ public class ExtendedTab extends Tab {
             tabel.setItems(DatabaseObservableList.fetchData(query));
         });
         BZoeken.setOnAction((ActionEvent event) -> {
-            if (!CBZoeken.getSelectionModel().isEmpty()) {
+            if (!CBZoeken.getSelectionModel().isEmpty() && !(TFZoeken.getText().trim().isEmpty())) {
                 String categorie = CBZoeken.getSelectionModel().getSelectedItem().toString();
                 String zoekopdracht = "" + TFZoeken.getText();
                 String zoekQuery = QueryParser.setCategorieZoekopdracht(query, categorie, zoekopdracht);
@@ -120,14 +120,20 @@ public class ExtendedTab extends Tab {
         addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
-
             }
 
             @Override
             public void keyPressed(KeyEvent e) {
-                int key = e.getKeyCode();
-                if (key == KeyEvent.VK_ENTER) {
-                    if (!CBZoeken.getSelectionModel().isEmpty()) {
+                int keyCode = e.getKeyCode();
+                char keyChar = e.getKeyChar();
+                int keyCodeExtended = e.getExtendedKeyCode();
+
+                System.out.println(keyCode);
+                System.out.println(keyChar);
+                System.out.println(keyCodeExtended);
+
+                if (keyCode == KeyEvent.VK_ENTER) {
+                    if (!CBZoeken.getSelectionModel().isEmpty() && !(TFZoeken.getText().trim().isEmpty())) {
                         String categorie = CBZoeken.getSelectionModel().getSelectedItem().toString();
                         String zoekopdracht = "" + TFZoeken.getText();
                         String zoekQuery = QueryParser.setCategorieZoekopdracht(query, categorie, zoekopdracht);
@@ -138,7 +144,6 @@ public class ExtendedTab extends Tab {
 
             @Override
             public void keyReleased(KeyEvent e) {
-
             }
         });
     }
