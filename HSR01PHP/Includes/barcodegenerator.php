@@ -8,3 +8,10 @@ function generateBarcode($length) {
     }
     return $barcode;
 }
+
+print(generateBarcode(13) . "\n");
+print(generateBarcode(13) . "\n");
+print(generateBarcode(13) . "\n");
+print(generateBarcode(13) . "\n");
+print(generateBarcode(13) . "\n");
+print(generateBarcode(13) . "\n");
