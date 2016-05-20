@@ -27,6 +27,12 @@ public class TableViewTest extends Application {
             System.out.println(waarde);
         }
         
+        testTableView.getSelectionModel().select(5);
+        System.out.println(testTableView.getSelectionModel().getSelectedIndex());
+        testTableView.getSelectionModel().select(1);
+        System.out.println(testTableView.getSelectionModel().getSelectedIndex());
+        
+        
 //        ObservableList observableList = testTableView.getItems();
 //        for(Object rij : observableList) {
 //            ObservableList rij2 = (ObservableList) rij;

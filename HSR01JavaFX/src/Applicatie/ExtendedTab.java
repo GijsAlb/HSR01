@@ -4,10 +4,12 @@ import Functions.Database.DatabaseKolommenObservableList;
 import Functions.Database.DatabaseObservableList;
 import Functions.Database.DatabaseTableView;
 import Functions.Database.DatabaseVerwijder;
+import Functions.QueryParser;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.NodeOrientation;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -20,10 +22,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 
 public class ExtendedTab extends Tab {
+
     //Attributes
     private String selectieId;
     private TableView tabel;
-    
+
     //Constructors
     public ExtendedTab(String titel, String query, String kolommenquery, String deleteQuery) {
         setText(titel);
@@ -40,6 +43,7 @@ public class ExtendedTab extends Tab {
         Button BVerwijderen = new Button();
         Button BHerladen = new Button();
         Button BZoeken = new Button();
+        BZoeken.setDefaultButton(true);
         ComboBox CBZoeken = new ComboBox(DatabaseKolommenObservableList.fetchData(kolommenquery));
         CBZoeken.setId("zoeken-combo-box");
         CBZoeken.setPromptText("Categorie");
@@ -66,7 +70,7 @@ public class ExtendedTab extends Tab {
                 CBZoeken,
                 TFZoeken
         );
-        
+
         //ToolBar wordt toegevoegd aan de BorderPane
         borderPane.setTop(toolBar);
 
@@ -76,33 +80,39 @@ public class ExtendedTab extends Tab {
         pakketStackPane.getChildren().add(tabel);
         borderPane.setCenter(pakketStackPane);
         setContent(borderPane);
-        
+
         //Functionaliteit wordt toegevoegd aan de Buttons
         BVerwijderen.setOnAction((ActionEvent event) -> {
+            int index = tabel.getSelectionModel().getSelectedIndex();
             DatabaseVerwijder.verwijder(deleteQuery, selectieId);
             tabel.setItems(DatabaseObservableList.fetchData(query));
+            tabel.getSelectionModel().select(index);
         });
         BHerladen.setOnAction((ActionEvent event) -> {
             tabel.setItems(DatabaseObservableList.fetchData(query));
         });
-        
-        
+        BZoeken.setOnAction((ActionEvent event) -> {
+            if (!CBZoeken.getSelectionModel().isEmpty()) {
+                String categorie = CBZoeken.getSelectionModel().getSelectedItem().toString();
+                String zoekopdracht = "" + TFZoeken.getText();
+                String zoekQuery = QueryParser.setCategorieZoekopdracht(query, categorie, zoekopdracht);
+                tabel.setItems(DatabaseObservableList.fetchData(zoekQuery));
+            }
+        });
+
         //Selectielistener voor pakkettabel
-        tabel.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
-            @Override
-            public void changed(ObservableValue observableValue, Object oldValue, Object newValue) {
-                //Kijkt welke rij is geselecteerd en haalt hier de 1e kolom (in principe de primary key) uit en slaat deze op in het attribuut selectieId
-                if (tabel.getSelectionModel().getSelectedItem() != null) {
-                    ObservableList itemslist = tabel.getSelectionModel().getSelectedItems();
-                    for(Object rij : itemslist) {
-                        ObservableList observableRij = (ObservableList) rij;
-                        selectieId = (String) observableRij.get(0);
-                        System.out.println(selectieId);
-                    }
+        tabel.getSelectionModel().selectedItemProperty().addListener((ObservableValue observableValue, Object oldValue, Object newValue) -> {
+            //Kijkt welke rij is geselecteerd en haalt hier de 1e kolom (in principe de primary key) uit en slaat deze op in het attribuut selectieId
+            if (tabel.getSelectionModel().getSelectedItem() != null) {
+                ObservableList itemslist = tabel.getSelectionModel().getSelectedItems();
+                for (Object rij : itemslist) {
+                    ObservableList observableRij = (ObservableList) rij;
+                    selectieId = (String) observableRij.get(0);
+                    System.out.println(selectieId);
                 }
             }
         });
-        
+
         setClosable(false);
     }
 }

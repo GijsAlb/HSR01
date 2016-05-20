@@ -40,6 +40,7 @@ public class DatabaseTableView {
                     }
                 });
 
+
                 tableview.getColumns().addAll(col);
 
             }
@@ -58,6 +59,7 @@ public class DatabaseTableView {
 
             //Voegt alle data toe aan tableview
             tableview.setItems(data);
+            conn.close();
             return tableview;
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException ex) {
             System.err.println(ex.getMessage());
