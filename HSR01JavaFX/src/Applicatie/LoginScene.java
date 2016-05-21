@@ -1,6 +1,6 @@
 package Applicatie;
 
-import Functions.Database.DatabaseArrayListHashMap;
+import Verouderd.DatabaseArrayListHashMap;
 import Functions.Hasher;
 import java.awt.Dimension;
 import java.awt.Toolkit;

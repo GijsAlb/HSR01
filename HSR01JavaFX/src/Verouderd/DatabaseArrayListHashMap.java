@@ -1,4 +1,4 @@
-package Functions.Database;
+package Verouderd;
 
 import java.sql.*;
 import Config.config;

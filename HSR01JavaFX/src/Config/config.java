@@ -31,10 +31,10 @@ public class config {
                                                 + "p.idpakket, "
                                                 + "p.barcode, "
                                                 + "(CASE p.locatie "
-                                                    + "WHEN 1 THEN 'Verwerking(1)' "
-                                                    + "WHEN 2 THEN 'Opgehaald(2)' "
-                                                    + "WHEN 3 THEN 'In de trein(3)' "
-                                                    + "WHEN 4 THEN 'Afgeleverd(4)' "
+                                                    + "WHEN 1 THEN 'Verwerking (1)' "
+                                                    + "WHEN 2 THEN 'Opgehaald (2)' "
+                                                    + "WHEN 3 THEN 'In de trein (3)' "
+                                                    + "WHEN 4 THEN 'Afgeleverd (4)' "
                                                     + "ELSE 'Locatie onbekend' "
                                                 + "END) AS locatie, "
                                                 + "p.lengte, "
@@ -53,7 +53,6 @@ public class config {
                                                 + "ON o.idontvanger = p.ontvanger_idontvanger "
                                             + "WHERE p.verwijderd = 0 "
                                             + "ORDER BY p.idpakket;";
-    public static final String PAKKETDELETE = "UPDATE pakket SET verwijderd = '1' WHERE idpakket = ";
     
     //Treinkoerier query's
     public static final String TREINKOERIERKOLOMMENQUERY = "SELECT "
@@ -79,5 +78,4 @@ public class config {
                                                 + "FROM treinkoerier tk "
                                                 + "WHERE verwijderd = 0 "
                                                 + "ORDER BY idtreinkoerier;";
-    public static final String TREINKOERIERDELETE = "UPDATE treinkoerier SET verwijderd = '1' WHERE idtreinkoerier = ";
 }

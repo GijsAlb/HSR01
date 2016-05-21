@@ -1,5 +1,5 @@
 import Config.config;
-import Functions.Database.DatabaseKolommenObservableList;
+import Verouderd.DatabaseKolommenObservableList;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

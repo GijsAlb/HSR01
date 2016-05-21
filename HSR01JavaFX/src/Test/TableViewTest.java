@@ -1,7 +1,7 @@
 package Test;
 
 import Config.config;
-import Functions.Database.DatabaseTableView;
+import Verouderd.DatabaseTableView;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;

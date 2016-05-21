@@ -1,11 +1,11 @@
-package Functions.Database;
+package Verouderd;
 
 import java.sql.*;
 import Config.config;
 
 public class DatabaseVerwijder {
-    //Voert een query uit, zet het meegegeven veld in een ArrayList, die wordt gereturnd
-    public static void verwijder(String query, String whereVeld) {
+    //Zet de kolom 'verwijderd' op true, op basis van de meegegeven tabel, primarykey en waarde
+    public static void verwijder(String tabel, String primarykey, String whereVeld) {
         Connection conn;
         try {
             //MySQL driver aanroepen
@@ -16,7 +16,12 @@ public class DatabaseVerwijder {
                 //Statement maken met de connectie
                 Statement st = conn.createStatement();
                 
-                StringBuilder sb = new StringBuilder(query);
+                StringBuilder sb = new StringBuilder();
+                sb.append("UPDATE ");
+                sb.append(tabel);
+                sb.append(" SET ");
+                sb.append(primarykey);
+                sb.append(" = ");
                 sb.append(whereVeld);
                 sb.append(";");
                 String updateQuery = sb.toString();

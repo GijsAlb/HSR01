@@ -6,15 +6,16 @@ import javafx.scene.control.TabPane;
 import javafx.stage.Stage;
 
 public class OverzichtScene extends Scene {
+
     //Constructors
     public OverzichtScene(Stage stage, TabPane root, double width, double height) {
         super(root, width, height);
-        
+
         //Tabje met overzicht pakketten
-        ExtendedTab pakketTab = new ExtendedTab("Pakketten", config.PAKKETQUERY, config.PAKKETKOLOMMENQUERY, config.PAKKETDELETE);
-        
+        ExtendedTab pakketTab = new ExtendedTab("Pakketten", config.PAKKETQUERY, config.PAKKETKOLOMMENQUERY, "pakket", "idpakket");
+
         //Tabje met overzicht treinkoeriers
-        ExtendedTab treinkoerierTab = new ExtendedTab("Treinkoeriers", config.TREINKOERIERQUERY, config.TREINKOERIERKOLOMMENQUERY, config.TREINKOERIERDELETE);
+        ExtendedTab treinkoerierTab = new ExtendedTab("Treinkoeriers", config.TREINKOERIERQUERY, config.TREINKOERIERKOLOMMENQUERY, "treinkoerier", "idtreinkoerier");
 
         //Tabs toevoegen aan de TabPane
         root.getTabs().addAll(pakketTab, treinkoerierTab);

@@ -1,9 +1,6 @@
 package Applicatie;
 
-import Functions.Database.DatabaseKolommenObservableList;
-import Functions.Database.DatabaseObservableList;
-import Functions.Database.DatabaseTableView;
-import Functions.Database.DatabaseVerwijder;
+import Functions.Database;
 import Functions.QueryParser;
 import static com.sun.java.accessibility.util.AWTEventMonitor.addKeyListener;
 import java.awt.event.KeyEvent;
@@ -27,10 +24,13 @@ public class ExtendedTab extends Tab {
     //Attributes
     private String selectieId;
     private String selectieQuery;
-    private TableView tabel;
+    private final String origineleQuery;
+    private TableView tableView;
 
     //Constructors
-    public ExtendedTab(String titel, String query, String kolommenquery, String deleteQuery) {
+    public ExtendedTab(String titel, String query, String kolommenquery, String tabel, String primarykey) {
+        origineleQuery = query;
+        
         setText(titel);
 
         BorderPane borderPane = new BorderPane();
@@ -46,7 +46,7 @@ public class ExtendedTab extends Tab {
         Button BHerladen = new Button();
         Button BZoeken = new Button();
         BZoeken.setDefaultButton(true);
-        ComboBox CBZoeken = new ComboBox(DatabaseKolommenObservableList.fetchData(kolommenquery));
+        ComboBox CBZoeken = new ComboBox(Database.getKolommen(kolommenquery));
         CBZoeken.setId("zoeken-combo-box");
         CBZoeken.setPromptText("Categorie");
         CBZoeken.setPrefWidth(200);
@@ -78,48 +78,50 @@ public class ExtendedTab extends Tab {
         borderPane.setTop(toolBar);
 
         //Zet de pakkettentabel in een StackPane en zet die in het midden van de BorderPane
-        tabel = DatabaseTableView.fetchData(query);
+        tableView = Database.getTableView(query);
         selectieQuery = query;
         StackPane pakketStackPane = new StackPane();
-        pakketStackPane.getChildren().add(tabel);
+        pakketStackPane.getChildren().add(tableView);
         borderPane.setCenter(pakketStackPane);
         setContent(borderPane);
 
         //Functionaliteit wordt toegevoegd aan de Buttons
         BVerwijderen.setOnAction((ActionEvent event) -> {
-            int index = tabel.getSelectionModel().getSelectedIndex();
-            DatabaseVerwijder.verwijder(deleteQuery, selectieId);
-            tabel.setItems(DatabaseObservableList.fetchData(selectieQuery));
-            tabel.getSelectionModel().select(index);
+            int index = tableView.getSelectionModel().getSelectedIndex();
+            Database.delete(tabel, primarykey, selectieId);
+            tableView.setItems(Database.getData(selectieQuery));
+            tableView.getSelectionModel().select(index);
         });
         BHerladen.setOnAction((ActionEvent event) -> {
-            tabel.setItems(DatabaseObservableList.fetchData(query));
+            tableView.setItems(Database.getData(query));
+            selectieQuery = origineleQuery;
         });
         BZoeken.setOnAction((ActionEvent event) -> {
             if (!CBZoeken.getSelectionModel().isEmpty() && !(TFZoeken.getText().trim().isEmpty())) {
                 String categorie = CBZoeken.getSelectionModel().getSelectedItem().toString();
                 String zoekopdracht = "" + TFZoeken.getText();
                 String zoekQuery = QueryParser.setCategorieZoekopdracht(query, categorie, zoekopdracht);
-                tabel.setItems(DatabaseObservableList.fetchData(zoekQuery));
+                tableView.setItems(Database.getData(zoekQuery));
                 selectieQuery = zoekQuery;
             }
         });
 
         //Selectielistener voor pakkettabel
-        tabel.getSelectionModel().selectedItemProperty().addListener((ObservableValue observableValue, Object oldValue, Object newValue) -> {
+        tableView.getSelectionModel().selectedItemProperty().addListener((ObservableValue observableValue, Object oldValue, Object newValue) -> {
             //Kijkt welke rij is geselecteerd en haalt hier de 1e kolom (in principe de primary key) uit en slaat deze op in het attribuut selectieId
-            if (tabel.getSelectionModel().getSelectedItem() != null) {
-                ObservableList itemslist = tabel.getSelectionModel().getSelectedItems();
+            if (tableView.getSelectionModel().getSelectedItem() != null) {
+                ObservableList itemslist = tableView.getSelectionModel().getSelectedItems();
                 for (Object rij : itemslist) {
                     ObservableList observableRij = (ObservableList) rij;
                     selectieId = (String) observableRij.get(0);
-                    System.out.println(selectieId);
                 }
             }
         });
-
+        
+        //Zorgt ervoor dat het tabje niet gesloten kan worden
         setClosable(false);
-
+        
+        //KeyListener zodat kan worden gezocht met enter
         addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -134,7 +136,7 @@ public class ExtendedTab extends Tab {
                         String categorie = CBZoeken.getSelectionModel().getSelectedItem().toString();
                         String zoekopdracht = "" + TFZoeken.getText();
                         String zoekQuery = QueryParser.setCategorieZoekopdracht(query, categorie, zoekopdracht);
-                        tabel.setItems(DatabaseObservableList.fetchData(zoekQuery));
+                        tableView.setItems(Database.getData(zoekQuery));
                         selectieQuery = zoekQuery;
                     }
                 }

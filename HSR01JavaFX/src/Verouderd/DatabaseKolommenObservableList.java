@@ -1,19 +1,16 @@
-package Functions.Database;
+package Verouderd;
 
 import Config.config;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-/**
- *
- * @author Gijs
- */
 public class DatabaseKolommenObservableList {
-   
+    
     public static ObservableList<String> fetchData(String query) {
        Connection conn;
        ObservableList<String> lijst = FXCollections.observableArrayList();
@@ -23,7 +20,7 @@ public class DatabaseKolommenObservableList {
             //Connectie wordt gemaakt
             conn = DriverManager.getConnection(config.URL, config.USERNAME, config.PASSWORD);
             //Query wordt uitgevoerd en in een ResultSet gezet
-            java.sql.ResultSet rs = conn.createStatement().executeQuery(query);
+            ResultSet rs = conn.createStatement().executeQuery(query);
             ResultSetMetaData rsmd = rs.getMetaData();
             int columnCount = rsmd.getColumnCount();
         

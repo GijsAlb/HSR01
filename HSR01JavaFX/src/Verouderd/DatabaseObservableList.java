@@ -1,21 +1,15 @@
-package Functions.Database;
+package Verouderd;
 
 import Config.config;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.util.Callback;
 
-public class DatabaseTableView {
-    public static TableView fetchData(String query) {
-        TableView tableview = new TableView();
+public class DatabaseObservableList {
+    public static ObservableList fetchData(String query) {
         ObservableList<ObservableList<String>> data = FXCollections.observableArrayList();
         Connection conn;
         try {
@@ -25,25 +19,6 @@ public class DatabaseTableView {
             conn = DriverManager.getConnection(config.URL, config.USERNAME, config.PASSWORD);
             //Query wordt uitgevoerd en in een ResultSet gezet
             ResultSet rs = conn.createStatement().executeQuery(query);
-
-            //Voegt dynamisch kolommen toe aan de hand van het aantal kolommen in de query
-            for (int i = 0; i < rs.getMetaData().getColumnCount(); i++) {
-                final int j = i;
-                TableColumn col = new TableColumn(rs.getMetaData().getColumnLabel(i + 1));
-                col.setSortable(false);
-                
-                //Geeft juiste waarde uit de database aan de tabelkolom
-                col.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ObservableList, String>, ObservableValue<String>>() {
-                    @Override
-                    public ObservableValue<String> call(TableColumn.CellDataFeatures<ObservableList, String> param) {
-                        return new SimpleStringProperty(param.getValue().get(j).toString());
-                    }
-                });
-
-
-                tableview.getColumns().addAll(col);
-
-            }
 
             //Voegt rijen toe en zet deze in de ObserverableArrayList zodat de data automatisch binnen de tabel ingevoegd wordt
             while (rs.next()) {
@@ -56,11 +31,8 @@ public class DatabaseTableView {
 
                 data.add(row);
             }
-
-            //Voegt alle data toe aan tableview
-            tableview.setItems(data);
-            conn.close();
-            return tableview;
+            
+            return data;
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException ex) {
             System.err.println(ex.getMessage());
             return null;

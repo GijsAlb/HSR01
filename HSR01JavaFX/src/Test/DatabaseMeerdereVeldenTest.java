@@ -1,6 +1,6 @@
 package Test;
 
-import Functions.Database.DatabaseMeerdereVelden;
+import Verouderd.DatabaseMeerdereVelden;
 import java.util.ArrayList;
 
 public class DatabaseMeerdereVeldenTest {
