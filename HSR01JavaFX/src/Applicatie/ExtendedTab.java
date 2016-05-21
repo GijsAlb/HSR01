@@ -30,10 +30,8 @@ public class ExtendedTab extends Tab {
     //Constructors
     public ExtendedTab(String titel, String query, String kolommenquery, String tabel, String primarykey) {
         origineleQuery = query;
-        
-        setText(titel);
 
-        BorderPane borderPane = new BorderPane();
+        setText(titel);
 
         //Toolbar voor boven de pakkettentabel
         ToolBar toolBar = new ToolBar();
@@ -74,23 +72,24 @@ public class ExtendedTab extends Tab {
                 TFZoeken
         );
 
-        //ToolBar wordt toegevoegd aan de BorderPane
-        borderPane.setTop(toolBar);
-
-        //Zet de pakkettentabel in een StackPane en zet die in het midden van de BorderPane
+        //Maakt de tabel en zet deze in een StackPane
         tableView = Database.getTableView(query);
         selectieQuery = query;
         StackPane pakketStackPane = new StackPane();
         pakketStackPane.getChildren().add(tableView);
+        
+        //Toolbar en tabel worden toegevoegd aan de BorderPane
+        BorderPane borderPane = new BorderPane();
+        borderPane.setTop(toolBar);
         borderPane.setCenter(pakketStackPane);
         setContent(borderPane);
 
         //Functionaliteit wordt toegevoegd aan de Buttons
         BVerwijderen.setOnAction((ActionEvent event) -> {
-            int index = tableView.getSelectionModel().getSelectedIndex();
+            int index = tableView.getSelectionModel().getSelectedIndex(); //Slaat de positie op van de rij die is geselecteerd
             Database.delete(tabel, primarykey, selectieId);
             tableView.setItems(Database.getData(selectieQuery));
-            tableView.getSelectionModel().select(index);
+            tableView.getSelectionModel().select(index); //Selecteert de positie die voor het verwijderen was geselecteerd
         });
         BHerladen.setOnAction((ActionEvent event) -> {
             tableView.setItems(Database.getData(query));
@@ -106,21 +105,21 @@ public class ExtendedTab extends Tab {
             }
         });
 
-        //Selectielistener voor pakkettabel
+        //Kijkt welke rij is geselecteerd en haalt hier de 1e kolom (in principe de primary key) uit en slaat deze op in het attribuut selectieId
         tableView.getSelectionModel().selectedItemProperty().addListener((ObservableValue observableValue, Object oldValue, Object newValue) -> {
-            //Kijkt welke rij is geselecteerd en haalt hier de 1e kolom (in principe de primary key) uit en slaat deze op in het attribuut selectieId
             if (tableView.getSelectionModel().getSelectedItem() != null) {
                 ObservableList itemslist = tableView.getSelectionModel().getSelectedItems();
                 for (Object rij : itemslist) {
                     ObservableList observableRij = (ObservableList) rij;
                     selectieId = (String) observableRij.get(0);
+                    System.out.println(selectieId);
                 }
             }
         });
-        
+
         //Zorgt ervoor dat het tabje niet gesloten kan worden
         setClosable(false);
-        
+
         //KeyListener zodat kan worden gezocht met enter
         addKeyListener(new KeyListener() {
             @Override

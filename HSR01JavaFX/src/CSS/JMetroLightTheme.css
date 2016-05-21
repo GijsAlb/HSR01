@@ -44,7 +44,7 @@
 
 .button {
     -fx-padding: 5 22 5 22;   
-    -fx-border-style: null; 
+    -fx-border-style: none;
     -fx-background-radius: 0;
 
     -fx-background-color: #cccccc;
@@ -98,7 +98,7 @@
 
 .toggle-button {
     -fx-padding: 5 22 5 22;   
-    -fx-border-style: null; 
+    -fx-border-style: none; 
     -fx-background-radius: 0;
 
     -fx-background-color: #cccccc;
@@ -638,10 +638,3 @@
 .list-spinner:disabled {
     -fx-opacity: .4;
 }
-
-
-
-
-
-
-

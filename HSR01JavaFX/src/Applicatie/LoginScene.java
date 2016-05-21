@@ -1,6 +1,6 @@
 package Applicatie;
 
-import Verouderd.DatabaseArrayListHashMap;
+import Functions.Database;
 import Functions.Hasher;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -35,7 +35,7 @@ public class LoginScene extends Scene {
     public LoginScene(Stage stage, GridPane root, double width, double height) {
         super(root, width, height);
 
-        gebruikersnamenEnWachtwoorden = new ArrayList<>(DatabaseArrayListHashMap.fetchData("SELECT gebruikersnaam, wachtwoord FROM backoffice_account;", "gebruikersnaam", "wachtwoord"));
+        gebruikersnamenEnWachtwoorden = new ArrayList<>(Database.getArrayListHashMap("SELECT gebruikersnaam, wachtwoord FROM backoffice_account;", "gebruikersnaam", "wachtwoord"));
 
         root.setAlignment(Pos.TOP_CENTER);
         root.setHgap(10);

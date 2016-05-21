@@ -44,8 +44,7 @@ public class config {
                                                 + "a.idafzender, "
                                                 + "CONCAT(a.afzender_voornaam, ' ', a.afzender_achternaam) AS afzender, "
                                                 + "o.idontvanger, "
-                                                + "CONCAT(o.ontvanger_voornaam, ' ', o.ontvanger_achternaam) AS ontvanger, "
-                                                + "p.verwijderd "
+                                                + "CONCAT(o.ontvanger_voornaam, ' ', o.ontvanger_achternaam) AS ontvanger "
                                             + "FROM pakket p "
                                             + "JOIN afzender a "
                                                 + "ON a.idafzender = p.afzender_idafzender "
@@ -66,6 +65,7 @@ public class config {
                                                             + "treinkoerier_huisnr, "
                                                             + "actief "
                                                          + "FROM treinkoerier tk;";
+    
     public static final String TREINKOERIERQUERY = "SELECT "
                                                     + "idtreinkoerier, "
                                                     + "CONCAT(treinkoerier_voornaam, ' ', treinkoerier_achternaam) AS naam, "

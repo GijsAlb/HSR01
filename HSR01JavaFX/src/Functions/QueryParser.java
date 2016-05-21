@@ -31,6 +31,7 @@ public class QueryParser {
         sb.append(" ");
         sb.append(query.substring(endIndex));
         
+        System.out.println(sb);
         return sb.toString();
     }
 }

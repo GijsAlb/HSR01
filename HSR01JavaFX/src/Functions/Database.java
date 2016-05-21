@@ -48,8 +48,8 @@ public class Database {
     
     //Voert een query uit, zet de twee meegegeven velden in een LinkedHashMap en zet deze LinkedHashMaps vervolgens in een overkoepelende ArrayList, die wordt gereturnd
     public static ArrayList<LinkedHashMap<String, String>> getArrayListHashMap(String query, String veld1, String veld2) {
-        ArrayList<LinkedHashMap<String, String>> data = new ArrayList<>();
         Connection conn;
+        ArrayList<LinkedHashMap<String, String>> data = new ArrayList<>();
         try {
             //MySQL driver wordt aangeroepen
             Class.forName(config.DRIVER).newInstance();
@@ -79,8 +79,8 @@ public class Database {
     
     //Haalt data op uit de database en zet deze in een lijst, waarmee een TableView kan worden gevuld
     public static ObservableList getData(String query) {
-        ObservableList<ObservableList<String>> data = FXCollections.observableArrayList();
         Connection conn;
+        ObservableList<ObservableList<String>> data = FXCollections.observableArrayList();
         try {
             //MySQL driver aanroepen  
             Class.forName(config.DRIVER).newInstance();
@@ -89,16 +89,14 @@ public class Database {
             //Query wordt uitgevoerd en in een ResultSet gezet
             ResultSet rs = conn.createStatement().executeQuery(query);
 
-            //Voegt rijen toe en zet deze in de ObserverableArrayList zodat de data automatisch binnen de tabel ingevoegd wordt
+            //Voegt rijen toe en zet deze in de ObserverableList zodat de data automatisch binnen de tabel ingevoegd wordt
             while (rs.next()) {
-                //Iterate Row
-                ObservableList<String> row = FXCollections.observableArrayList();
+                //Maakt een rij aan en zet deze in de ObservableList
+                ObservableList<String> rij = FXCollections.observableArrayList();
                 for (int i = 1; i <= rs.getMetaData().getColumnCount(); i++) {
-                    //zorgt dat de data onder de juiste kolom wordt geplaatst
-                    row.add(rs.getString(i));
+                    rij.add(rs.getString(i));
                 }
-
-                data.add(row);
+                data.add(rij);
             }
             
             return data;
@@ -110,9 +108,9 @@ public class Database {
     
     //Haalt data en kolommen op uit de database en maakt hier een TableView mee
     public static TableView getTableView(String query) {
+        Connection conn;
         TableView tableview = new TableView();
         ObservableList<ObservableList<String>> data = FXCollections.observableArrayList();
-        Connection conn;
         try {
             //MySQL driver aanroepen  
             Class.forName(config.DRIVER).newInstance();
@@ -124,11 +122,11 @@ public class Database {
             //Voegt dynamisch kolommen toe aan de hand van het aantal kolommen in de query
             for (int i = 0; i < rs.getMetaData().getColumnCount(); i++) {
                 final int j = i;
-                TableColumn col = new TableColumn(rs.getMetaData().getColumnLabel(i + 1));
-                col.setSortable(false);
+                TableColumn kolom = new TableColumn(rs.getMetaData().getColumnLabel(i + 1));
+                kolom.setSortable(false);
                 
                 //Geeft juiste waarde uit de database aan de tabelkolom
-                col.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ObservableList, String>, ObservableValue<String>>() {
+                kolom.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ObservableList, String>, ObservableValue<String>>() {
                     @Override
                     public ObservableValue<String> call(TableColumn.CellDataFeatures<ObservableList, String> param) {
                         return new SimpleStringProperty(param.getValue().get(j).toString());
@@ -136,7 +134,7 @@ public class Database {
                 });
 
 
-                tableview.getColumns().addAll(col);
+                tableview.getColumns().addAll(kolom);
 
             }
 

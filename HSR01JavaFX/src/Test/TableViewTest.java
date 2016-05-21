@@ -1,7 +1,7 @@
 package Test;
 
 import Config.config;
-import Verouderd.DatabaseTableView;
+import Functions.Database;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
@@ -20,7 +20,7 @@ public class TableViewTest extends Application {
         StackPane testPane = new StackPane();
         Scene testScene = new Scene(testPane, 500, 400);
         
-        TableView testTableView = DatabaseTableView.fetchData(config.PAKKETQUERY);
+        TableView testTableView = Database.getTableView(config.PAKKETQUERY);
         
         ObservableList itemslist = testTableView.getSelectionModel().getSelectedItems();
         for(Object waarde : itemslist) {

@@ -1,19 +1,17 @@
 import Config.config;
-import Verouderd.DatabaseKolommenObservableList;
+import Functions.Database;
+
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
 public class CellFactoryTest extends Application {
     public static void main(String[] args) {
@@ -27,7 +25,7 @@ public class CellFactoryTest extends Application {
 
         GridPane gridpane = new GridPane();
 
-        ComboBox<String> cmb = new ComboBox(DatabaseKolommenObservableList.fetchData(config.PAKKETKOLOMMENQUERY));
+        ComboBox<String> cmb = new ComboBox(Database.getKolommen(config.PAKKETKOLOMMENQUERY));
         ObservableList labels = FXCollections.observableArrayList();
         labels.addAll("1e label", "2e label", "3e label");
         
