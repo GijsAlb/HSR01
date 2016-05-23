@@ -12,10 +12,10 @@ public class OverzichtScene extends Scene {
         super(root, width, height);
 
         //Tabje met overzicht pakketten
-        ExtendedTab pakketTab = new ExtendedTab("Pakketten", config.PAKKETQUERY, config.PAKKETKOLOMMENQUERY, "pakket", "idpakket");
-
+        ExtendedTab pakketTab = new ExtendedTab("Pakketten", config.PAKKETQUERY, "pakket", "idpakket", config.PAKKETINSERT);
+        
         //Tabje met overzicht treinkoeriers
-        ExtendedTab treinkoerierTab = new ExtendedTab("Treinkoeriers", config.TREINKOERIERQUERY, config.TREINKOERIERKOLOMMENQUERY, "treinkoerier", "idtreinkoerier");
+        ExtendedTab treinkoerierTab = new ExtendedTab("Treinkoeriers", config.TREINKOERIERQUERY, "treinkoerier", "idtreinkoerier", config.TREINKOERIERINSERT);
 
         //Tabs toevoegen aan de TabPane
         root.getTabs().addAll(pakketTab, treinkoerierTab);

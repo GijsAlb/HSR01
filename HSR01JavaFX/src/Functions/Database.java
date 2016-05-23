@@ -37,8 +37,35 @@ public class Database {
 
             //Loopt door alle kolommen uit de metadata heen en voegt ze toe aan de lijst
             for (int i = 1; i <= aantalKolommen; i++) {
-                lijst.add(rsmd.getColumnLabel(i));
+                lijst.add(rsmd.getColumnName(i));
             }
+            conn.close();
+            return lijst;
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException ex) {
+            System.err.println(ex.getMessage());
+            return null;
+        }
+    }
+    
+    public static ArrayList<String> getKolommenArrayList(String query) {
+        Connection conn;
+        ArrayList<String> lijst = new ArrayList<>();
+        try {
+            //MySQL driver aanroepen  
+            Class.forName(config.DRIVER).newInstance();
+            //Connectie wordt gemaakt
+            conn = DriverManager.getConnection(config.URL, config.USERNAME, config.PASSWORD);
+            //Query wordt uitgevoerd en in een ResultSet gezet
+            ResultSet rs = conn.createStatement().executeQuery(query);
+            //Metadata van de resultset wordt opgeslagen
+            ResultSetMetaData rsmd = rs.getMetaData();
+            int aantalKolommen = rsmd.getColumnCount();
+
+            //Loopt door alle kolommen uit de metadata heen en voegt ze toe aan de lijst
+            for (int i = 1; i <= aantalKolommen; i++) {
+                lijst.add(rsmd.getColumnName(i));
+            }
+            conn.close();
             return lijst;
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException ex) {
             System.err.println(ex.getMessage());
@@ -67,6 +94,7 @@ public class Database {
                     data.add(new LinkedHashMap<>(tempMap));
                     tempMap.clear();
                 }
+                conn.close();
                 return data;
             } catch (SQLException ex) {
                 System.err.println(ex.getMessage());
@@ -98,7 +126,7 @@ public class Database {
                 }
                 data.add(rij);
             }
-            
+            conn.close();
             return data;
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException ex) {
             System.err.println(ex.getMessage());
@@ -122,7 +150,7 @@ public class Database {
             //Voegt dynamisch kolommen toe aan de hand van het aantal kolommen in de query
             for (int i = 0; i < rs.getMetaData().getColumnCount(); i++) {
                 final int j = i;
-                TableColumn kolom = new TableColumn(rs.getMetaData().getColumnLabel(i + 1));
+                TableColumn kolom = new TableColumn(rs.getMetaData().getColumnName(i + 1));
                 kolom.setSortable(false);
                 
                 //Geeft juiste waarde uit de database aan de tabelkolom
@@ -133,9 +161,7 @@ public class Database {
                     }
                 });
 
-
                 tableview.getColumns().addAll(kolom);
-
             }
 
             //Voegt rijen toe en zet deze in de ObserverableArrayList zodat de data automatisch binnen de tabel ingevoegd wordt
@@ -185,7 +211,7 @@ public class Database {
                 
                 //Update wordt uitgevoerd
                 st.executeUpdate(updateQuery);
-                st.close();
+                conn.close();
             } catch (SQLException ex) {
                 System.err.println(ex.getMessage());
             }
@@ -193,4 +219,45 @@ public class Database {
             System.err.println(ex.getMessage());
         }
     }
+    
+    //Zet een nieuwe rij in een tabel met de naam van de tabel en de waardes die
+    public static void insert(String query, ArrayList<String> waardes) {
+        Connection conn;
+        try {
+            //MySQL drive aanroepen
+            Class.forName(config.DRIVER).newInstance();
+            //Connectie wordt gemaakt
+            conn = DriverManager.getConnection(config.URL, config.USERNAME, config.PASSWORD);
+            try {
+                //Statement maken met de connectie
+                Statement st = conn.createStatement();
+                
+                StringBuilder sb = new StringBuilder();
+                sb.append(query);
+                
+                for(int i = 0; i < waardes.size(); i++) {
+                    sb.append("'");
+                    sb.append(waardes.get(i));
+                    if (i == waardes.size() - 1) {
+                        sb.append("');");
+                    } else {
+                        sb.append("',");
+                    }
+                }
+                
+                String insertQuery = sb.toString();
+                
+                System.out.println(insertQuery);
+                
+                //Insert wordt uitgevoerd
+                st.executeUpdate(insertQuery);
+                conn.close();
+            } catch (SQLException ex) {
+                System.err.println(ex.getMessage());
+            }
+        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+    }
+    
 }

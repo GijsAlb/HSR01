@@ -5,11 +5,17 @@ import Functions.QueryParser;
 import static com.sun.java.accessibility.util.AWTEventMonitor.addKeyListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Optional;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.geometry.NodeOrientation;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableView;
@@ -28,7 +34,7 @@ public class ExtendedTab extends Tab {
     private TableView tableView;
 
     //Constructors
-    public ExtendedTab(String titel, String query, String kolommenquery, String tabel, String primarykey) {
+    public ExtendedTab(String titel, String query, String tabel, String primarykey, String insertQuery) {
         origineleQuery = query;
 
         setText(titel);
@@ -44,7 +50,7 @@ public class ExtendedTab extends Tab {
         Button BHerladen = new Button();
         Button BZoeken = new Button();
         BZoeken.setDefaultButton(true);
-        ComboBox CBZoeken = new ComboBox(Database.getKolommen(kolommenquery));
+        ComboBox CBZoeken = new ComboBox(Database.getKolommen(query));
         CBZoeken.setId("zoeken-combo-box");
         CBZoeken.setPromptText("Categorie");
         CBZoeken.setPrefWidth(200);
@@ -77,24 +83,49 @@ public class ExtendedTab extends Tab {
         selectieQuery = query;
         StackPane pakketStackPane = new StackPane();
         pakketStackPane.getChildren().add(tableView);
-        
+
         //Toolbar en tabel worden toegevoegd aan de BorderPane
         BorderPane borderPane = new BorderPane();
         borderPane.setTop(toolBar);
         borderPane.setCenter(pakketStackPane);
         setContent(borderPane);
-
-        //Functionaliteit wordt toegevoegd aan de Buttons
-        BVerwijderen.setOnAction((ActionEvent event) -> {
-            int index = tableView.getSelectionModel().getSelectedIndex(); //Slaat de positie op van de rij die is geselecteerd
-            Database.delete(tabel, primarykey, selectieId);
-            tableView.setItems(Database.getData(selectieQuery));
-            tableView.getSelectionModel().select(index); //Selecteert de positie die voor het verwijderen was geselecteerd
+        
+        //Toevoegknop
+        BToevoegen.setOnAction((ActionEvent event) -> {
+//            ToevoegenDialoog toevoegenDialoog = new ToevoegenDialoog();
+//            Optional<String> result = toevoegenDialoog.showAndWait();
+//            if (result.isPresent()){
+//                
+//            }
         });
+        
+        //Verwijderknop
+        BVerwijderen.setOnAction((ActionEvent event) -> {
+            Alert bevestiging = new Alert(AlertType.CONFIRMATION);
+            bevestiging.setTitle("Weet je het zeker?");
+            bevestiging.setContentText("Weet je zeker dat je id " + selectieId + " wil verwijderen uit de tabel " + tabel + "?");
+            
+            ButtonType BTOk = new ButtonType("Ok", ButtonData.OK_DONE);
+            ButtonType BTAnnuleren = new ButtonType("Annuleren", ButtonData.CANCEL_CLOSE);
+            bevestiging.getButtonTypes().setAll(BTOk, BTAnnuleren);
+            
+            Optional<ButtonType> result = bevestiging.showAndWait();
+            
+            if (result.get() == BTOk) {
+                int index = tableView.getSelectionModel().getSelectedIndex(); //Slaat de positie op van de rij die is geselecteerd
+                Database.delete(tabel, primarykey, selectieId);
+                tableView.setItems(Database.getData(selectieQuery));
+                tableView.getSelectionModel().select(index); //Selecteert de positie die voor het verwijderen was geselecteerd
+            }
+        });
+        
+        //Herlaadknop
         BHerladen.setOnAction((ActionEvent event) -> {
             tableView.setItems(Database.getData(query));
             selectieQuery = origineleQuery;
         });
+        
+        //Zoekknop
         BZoeken.setOnAction((ActionEvent event) -> {
             if (!CBZoeken.getSelectionModel().isEmpty() && !(TFZoeken.getText().trim().isEmpty())) {
                 String categorie = CBZoeken.getSelectionModel().getSelectedItem().toString();
@@ -104,7 +135,7 @@ public class ExtendedTab extends Tab {
                 selectieQuery = zoekQuery;
             }
         });
-
+        
         //Kijkt welke rij is geselecteerd en haalt hier de 1e kolom (in principe de primary key) uit en slaat deze op in het attribuut selectieId
         tableView.getSelectionModel().selectedItemProperty().addListener((ObservableValue observableValue, Object oldValue, Object newValue) -> {
             if (tableView.getSelectionModel().getSelectedItem() != null) {

@@ -25,7 +25,7 @@ public class CellFactoryTest extends Application {
 
         GridPane gridpane = new GridPane();
 
-        ComboBox<String> cmb = new ComboBox(Database.getKolommen(config.PAKKETKOLOMMENQUERY));
+        ComboBox<String> cmb = new ComboBox(Database.getKolommen(config.PAKKETQUERY));
         ObservableList labels = FXCollections.observableArrayList();
         labels.addAll("1e label", "2e label", "3e label");
         
